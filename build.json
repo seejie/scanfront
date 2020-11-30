@@ -1,0 +1,29 @@
+{
+
+  "plugins": [
+    [
+      "build-plugin-antd",
+      {
+        "themeConfig": {}
+      }
+    ],
+    [
+      "build-plugin-moment-locales",
+      {
+        "locales": [
+          "zh-cn"
+        ]
+      }
+    ]
+  
+  
+ 
+  ],
+  "proxy":{
+    "/api": {
+      "enable": true,
+      "target": "http://115.236.22.234:11224",
+      "pathRewrite": {"^/api" : ""}
+    }
+  }
+}

@@ -95,7 +95,7 @@ export default () => {
                 <div className="ac fz12">奖励</div>
               </Col>
             </Row>
-            <div style={{ overflowX: "scroll", height: "4.5rem" }}>
+            <div className={styles.rankingList} >
               {newList.map &&
                 newList.map((item, index) => {
                   return (

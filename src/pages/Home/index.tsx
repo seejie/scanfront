@@ -208,7 +208,7 @@ export default () => {
                   <div className=" fz12">出块份数</div>
                 </Col>
               </Row>
-              <div style={{ overflowX: "scroll", height: "3.7rem" }}>
+              <div className={styles.trendList} >
                 {list.miner_list &&
                   list.miner_list.map((item, index) => {
                     return (

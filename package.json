@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Ant Design and icejs scaffold, use TypeScript.",
   "dependencies": {
+    "@ant-design/charts": "^1.0.9",
     "@ant-design/icons": "^4.0.2",
     "@ant-design/pro-card": "^1.5.1",
     "@ant-design/pro-descriptions": "^1.0.36",

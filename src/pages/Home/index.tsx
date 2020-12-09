@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { SearchOutlined, GlobalOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { Row, Col, Progress, Select ,Input} from "antd";
 import { TinyArea, Line } from "@ant-design/charts";
 import apiService from "@/services/api";
 import { useRequest } from "ice";
-import { useInterval } from "ahooks";
 import Ranking from "./components/Ranking";
 import moment from "moment";
 import styles from "./index.module.less";
 import fil from "../../../assets/fil.png";
 import zs from "../../../assets/zs.png";
 import zs2 from "../../../assets/zs2.png";
-import more from "../../../assets/more.png";
-import VIP from "../../../assets/VIP.png";
 
-import { useSetState, useWebSocket } from "ahooks";
+
+import { useSetState } from "ahooks";
 export default () => {
   const { data = {}, error, loading } = useRequest(apiService.homestatic, {
     manual: false,
@@ -97,30 +95,24 @@ export default () => {
 
   return (
     <div>
-      <div style={{ paddingTop: ".38rem" }}>
-        <Row>
-          <Col span={12}>
-            <div className={styles.search}>
-              <SearchOutlined />
-              <Input
-                placeholder="搜索信息ID/区块哈希/矿工ID"
-                 style={{ width: "100%" ,border:0}}
-              />
-            </div>
-          </Col>
-          <Col span={12}>
-            <div className="align-items-center space-around">
-              <div className="align-items-center" style={{ height: ".38rem" }}>
-                <GlobalOutlined style={{ color: "#FFF" }} />
-                <span className="fz14 colorF ml10 ">当前网络：Mainnet</span>
-              </div>
-              <span className="fz14 colorF ml10 ">
-                区块高度 {data.LastHeight} ｜FIL单价 ${data.Price}
-              </span>
-            </div>
-          </Col>
-        </Row>
-      </div>
+      <Row>
+        <Col span={12}>
+          <div className={styles.search}>
+            <SearchOutlined />
+            <Input
+              placeholder="搜索信息ID/区块哈希/矿工ID"
+                style={{ width: "100%" ,border:0}}
+            />
+          </div>
+        </Col>
+        <Col span={12}>
+          <div className="align-items-center space-around">
+            <span className="fz14 colorF ml10 ">
+            FIL单价 {data.Price} | 24H平均挖矿收益 {data.AveProfit} ｜ 近24H产出量 {data.Newtoken}
+            </span>
+          </div>
+        </Col>
+      </Row>
       <div style={{ marginTop: ".6rem" }}>
         <Row gutter={8}>
           <Col span={6}>

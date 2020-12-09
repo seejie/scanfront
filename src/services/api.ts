@@ -1,4 +1,5 @@
 import { request } from "ice";
+
 export default {
   async homestatic(params) {
     return await request({
@@ -18,6 +19,5 @@ export default {
       params,
     });
   },
-  
 };
 

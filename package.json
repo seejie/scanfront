@@ -32,7 +32,7 @@
     "build": "icejs build",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint --cache --ext .js,.jsx ./",
-    "stylelint": "stylelint ./**/*.scss"
+    "stylelint": "stylelint ./**/*.less"
   },
   "private": true,
   "originTemplate": "@icedesign/ice-antd-scaffold"

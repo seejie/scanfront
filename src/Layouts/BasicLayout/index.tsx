@@ -4,17 +4,9 @@ import { ConfigProvider, Row, Col, Layout } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
 import zhCN from "antd/lib/locale/zh_CN";
 import bottomLogo from "../../../assets/bottom-logo.png";
-import { useRequest } from "ice";
-import apiService from "@/services/api";
 const { Header, Content, Footer } = Layout;
 
 export default function BasicLayout({ children }) {
-  const { data = {}, error, loading, request } = useRequest(
-    apiService.homestatic,{
-      manual:false
-    }
-  );
-
   return (
     <ConfigProvider locale={zhCN}>
       <div>

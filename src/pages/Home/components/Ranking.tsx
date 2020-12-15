@@ -43,7 +43,7 @@ export default () => {
               className="align-items-center space-between pl20 pr20"
               style={{ height: ".82rem" }}
             >
-              <div className="align-items-center ">
+              <div className="align-items-center">
                 <img
                   src={zs}
                   style={{
@@ -52,7 +52,7 @@ export default () => {
                   }}
                 />
                 <div className="ml10 fw600" style={{ lineHeight: ".82rem" }}>
-                  矿工排名
+                  最新区块
                 </div>
               </div>
               <div className="align-items-center ">

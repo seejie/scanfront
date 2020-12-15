@@ -1,208 +1,88 @@
-import React, { useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
-import { Row, Col, Progress, Select ,Input} from "antd";
-import { TinyArea, Line } from "@ant-design/charts";
-import apiService from "@/services/api";
-import { useRequest } from "ice";
+import React, { useState, useEffect } from "react";
+import SearchPanel from './components/SearchPanel'
+import DashBoard from './components/DashBoard'
+import Xpanel from '@/components/Xpanel'
+import { Row, Col, Progress, Select } from "antd";
 import Ranking from "./components/Ranking";
-import moment from "moment";
 import styles from "./index.module.less";
 import fil from "../../../assets/fil.png";
 import zs from "../../../assets/zs.png";
 import zs2 from "../../../assets/zs2.png";
+import zs3 from "../../../assets/zs3.png";
+import zs4 from "../../../assets/zs4.png";
+import api from '@/api'
+import { AnyObject } from '../../constant/types'
 
 
 import { useSetState } from "ahooks";
 export default () => {
-  const { data = {}, error, loading } = useRequest(apiService.homestatic, {
-    manual: false,
-  });
-  const { data: list = [] } = useRequest(apiService.minerlistbypower, {
-    manual: false,
-  });
-  const { data: basefee = [] } = useRequest(apiService.basefee, {
-    manual: false,
-  });
-
-  var data3 = [
-    264,
-    417,
-    438,
-    887,
-    309,
-    397,
-    550,
-    575,
-    563,
-    430,
-    525,
-    592,
-    492,
-    467,
-    513,
-    546,
-    983,
-    340,
-    539,
-    243,
-    226,
-    192,
-  ];
-
-  const basefeeList = basefee.map((item) => {
-    return {
-      time: moment(item.timestamp).format("HH:mm"),
-      value: item.base_fee * Math.pow(10, 9),
-    };
-  });
-  var config2 = {
-    data: basefeeList,
-    xField: "time",
-    yField: "value",
-
-    yAxis: {
-      label: {
-        formatter: function formatter(v) {
-          if (v === '0') {
-            return v + "attoFIL";
-          } else {
-            return Number(v).toFixed(2) + "nanoFIL";
-          }
-        },
-      },
-    },
-    legend: { position: "top" },
-    smooth: true,
-    animation: {
-      appear: {
-        animation: "path-in",
-        duration: 5000,
-      },
-    },
-  };
-  var config = {
-    height: 50,
-    line: {
-      color: "transparent",
-    },
-    autoFit: false,
-    data: data3,
-    smooth: true,
-    areaStyle: function areaStyle() {
-      return { fillOpacity: 1, fill: "l(270) 0:#7CD4FF 1:#83FF6C " };
-    },
-  };
+  
+  // 网络概览
+  const [net, setNet] = useState<AnyObject>({})
+  useEffect(() => { api.homestatic().then(res => setNet(res)) }, [])
+  // 算力走势
+  const [hashrateTrend, setHashrateTrend] = useState<Array<AnyObject>>([])
+  useEffect(() => { api.minerlistbypower().then(res => setHashrateTrend(res)) }, [])
+  
 
   return (
-    <div>
-      <Row>
-        <Col span={12}>
-          <div className={styles.search}>
-            <SearchOutlined />
-            <Input
-              placeholder="搜索信息ID/区块哈希/矿工ID"
-                style={{ width: "100%" ,border:0}}
-            />
-          </div>
-        </Col>
-        <Col span={12}>
-          <div className="align-items-center space-around">
-            <span className="fz14 colorF ml10 ">
-            FIL单价 {data.Price} | 24H平均挖矿收益 {data.AveProfit} ｜ 近24H产出量 {data.Newtoken}
-            </span>
-          </div>
-        </Col>
-      </Row>
-      <div style={{ marginTop: ".6rem" }}>
-        <Row gutter={8}>
-          <Col span={6}>
-            <div className={`${styles.box} ${styles.bg1}`}>
-              <div className=" color3 fz14"> 区块高度</div>
-              <div className="mt20 color3 fz24" style={{ fontWeight: 600 }}>
-                {data.LastHeight}
-              </div>
-              <div className="mt30 color3 fz14">最新区块时间</div>
-              <div className="mt20 color3 fz24" style={{ fontWeight: 600 }}>
-                {data.LastBlockTime} S
-              </div>
-            </div>
-          </Col>
-          <Col span={6}>
-            <div className={`${styles.box} ${styles.bg2} `}>
-              <div className=" color3 fz14"> 全网有效算力</div>
-              <div className="mt20 color3 fz24" style={{ fontWeight: 600 }}>
-                {data.NetworkPower}
-              </div>
-              <div className="mt30 color3 fz14">24H FIL增量</div>
-              <div className="mt20 color3 fz24" style={{ fontWeight: 600 }}>
-                {data.PowerIncrement}
-              </div>
-            </div>
-          </Col>
-          <Col span={6}>
-            <div className={`${styles.box} ${styles.bg3}`}>
-              <div className=" color3 fz14"> 活跃矿工数</div>
-              <div className="mt20 color3 fz24" style={{ fontWeight: 600 }}>
-                {data.ActiveMiner}PiB
-              </div>
-              <div className="mt30">
-                <TinyArea {...config} />
-              </div>
-            </div>
-          </Col>
-          <Col span={6}>
-            <div className={`${styles.box} ${styles.bg4}`}>
-              <div className=" color3 fz14"> 全网质押总量有效算力</div>
-              <div className="mt20 color3 fz24" style={{ fontWeight: 600 }}>
-                {data.PledgeTotal}
-              </div>
-              <div className="mt30 color3 fz14">流通总量</div>
-              <div className="mt20 color3 fz24" style={{ fontWeight: 600 }}>
-                {data.TotalCirculation}
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </div>
+    <>
+      <SearchPanel 
+        price={net.Price} 
+        profit={net.AveProfit} 
+        total={net.Newtoken}
+      />
+
+      <DashBoard info={net}/>
+
+      <Xpanel 
+        icon={zs} 
+        title="算力走势"
+        more={'22'}
+      >
+        
+      </Xpanel>
+
+      <Xpanel 
+        icon={zs2} 
+        title="24HBass Fee走势"
+        more={'22'}
+      ></Xpanel>
+
+      <Xpanel 
+        icon={zs4} 
+        title="最新区块"
+        more={'22'}
+      ></Xpanel>
+
+      <Xpanel 
+        icon={zs3} 
+        title="合作伙伴"
+        more={'22'}
+      ></Xpanel>
+
       <div className='mt20'>
         <Row gutter={8}>
           <Col span={12}>
             <div className={`${styles.boxList} `}>
-              <div
-                className="align-items-center "
-                style={{ padding: ".2rem 0 .1rem .2rem" }}
-              >
-                <img
-                  src={zs}
-                  style={{
-                    width: ".32rem",
-                    height: ".32rem",
-                  }}
-                />
-                <div className="ml10 fw600">算力走势</div>
-              </div>
-
               <Row>
                 <Col span={6}>
-                  <div className="ac fz12">矿工地址</div>
+                  <div className="ac fz12">矿工</div>
                 </Col>
-                <Col span={5}>
-                  <div className=" fz12">标签</div>
-                </Col>
-                <Col span={4}>
-                  <div className=" fz12">有效算力</div>
+                <Col span={10}>
+                  <div className="fz12">有效算力/占比</div>
                 </Col>
                 <Col span={4}>
                   <div className="ac fz12">24H增量</div>
                 </Col>
 
-                <Col span={4}>
-                  <div className=" fz12">出块份数</div>
+                <Col span={3}>
+                  <div className="fz12">出块份数</div>
                 </Col>
               </Row>
               <div className={styles.trendList} >
-                {list.miner_list &&
-                  list.miner_list.map((item, index) => {
+                {hashrateTrend.miner_list &&
+                  hashrateTrend.miner_list.map((item, index) => {
                     return (
                       <div key={index} style={{ marginTop: ".12rem" }}>
                         <Row>
@@ -224,27 +104,29 @@ export default () => {
                               <span>{item.address}</span>
                             </div>
                           </Col>
-                          <Col span={5}>
+                          <Col span={10}>
                             <div
-                              className=" fz14 "
+                              className={`${styles.progressWrapper} fz14`}
                               style={{ paddingRight: ".1rem" }}
                             >
                               <Progress
+                                className={styles.progress}
                                 percent={item.tag ? Number(item.tag) : 0}
                                 showInfo={false}
                                 size="small"
                               />
+                              <div className={styles.progessInfo}>
+                                {item.rank}，
+                                {item.power}
+                              </div>
                             </div>
-                          </Col>
-                          <Col span={4}>
-                            <div className=" fz14">{item.power}</div>
                           </Col>
                           <Col span={4}>
                             <div className="ac fz14">{item.delta}</div>
                           </Col>
 
-                          <Col span={4}>
-                            <div className=" fz14">{item.wincount}%</div>
+                          <Col span={3}>
+                            <div className=" fz14">{item.wincount}</div>
                           </Col>
                         </Row>
                       </div>
@@ -254,25 +136,12 @@ export default () => {
             </div>
           </Col>
           <Col span={12}>
-            <div className={`${styles.boxList} pl20 pr30 `}>
-              <div
-                className="align-items-center "
-                style={{ padding: ".2rem  .1rem .2rem" }}
-              >
-                <img
-                  src={zs2}
-                  style={{
-                    width: ".32rem",
-                    height: ".32rem",
-                  }}
-                />
-                <div className="ml10 fw600">24HBass Fee走势</div>
-              </div>
+            <div className={`${styles.boxList} pl20 pr30`}>
               <div
                 className="pr30 pb20"
                 style={{ overflowX: "scroll", height: "4rem" }}
               >
-                <Line {...config2} />
+                
               </div>
             </div>
           </Col>
@@ -280,28 +149,7 @@ export default () => {
       </div>
 
       <Ranking />
-      <div className='mt20 pb20'>
-        <Row gutter={8}>
-          <Col span={24}>
-            <div className={`${styles.boxList} `} style={{ height: "2.3rem" }}>
-              <div
-                className="align-items-center "
-                style={{ padding: ".2rem 0 .1rem .2rem" }}
-              >
-                <img
-                  src={zs}
-                  style={{
-                    width: ".32rem",
-                    height: ".32rem",
-                  }}
-                />
-                <div className="ml10 fw600">合作伙伴</div>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -2,22 +2,13 @@ import React, { useState } from "react";
 import styles from './index.module.less';
 import { Radio, Table } from 'antd';
 import { useRequest } from "ice";
-import apiService from "@/services/api";
-
 const {title, panel, header, left, right, list} = styles
 const imgBase = '../../../assets/' 
 
 export default () => {
   // const [type, setType] = useState<string>('')
   // const onTypeChanged = (val) => setType(val)
-
-  const { data = {}, error, loading, request } = useRequest(
-    apiService.homestatic,{
-      manual:false
-    }
-  );
   
-  console.log(data,1111)
   
   const columns = [
     {

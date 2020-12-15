@@ -20,8 +20,8 @@ const routerConfig = [{
       exact: true, 
       redirect: "/home" 
     }, { 
-      path: "/userAccount", 
-      exact: true, 
+      path: "/miner/:id", 
+      exact: false, 
       component: UserAccount,
     }, { 
       path: "/rank", 

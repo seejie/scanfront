@@ -5,10 +5,12 @@ import Xpanel from '@/components/Xpanel'
 const {title, panel, wrapper, header, row} = styles
 
 export default () => {
+  const id = window.location.href.split('/').reverse()[0]
+
   return (
     <>
       <div className={title}>
-        账户：10207
+        账户：{id}
       </div>
 
       <Xpanel 

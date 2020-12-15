@@ -1,3 +1,57 @@
 .wrapper{
   display: flex;
+  flex-wrap: wrap;
+  margin: 0 -30px;
+  .row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    &:nth-child(1) {
+      text-align: left;
+    }
+    .col{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      &:nth-child(1) {
+        text-align: right;
+        min-width: 34px;
+      }
+      &:nth-child(2) {
+        text-align: left;
+        min-width: 100px;
+      }
+      &:nth-child(3) {
+        text-align: left;
+        flex: 1;
+      }
+      &:nth-child(4) {
+        text-align: left;
+        min-width: 110px;
+      }
+      &:nth-child(5) {
+        text-align: left;
+        min-width: 80px;
+      }
+      &:nth-child(6) {
+        text-align: left;
+        min-width: 80px;
+      }
+      .td{
+        padding: 3px;
+        .icon{
+          width: 20px;
+          height: 20px;
+          margin-right: 6px;
+        }
+        .link{
+          cursor: pointer;
+          color: #003BE8;;
+        }
+        .progress{
+          min-width: 100px;
+        }
+      }
+    }
+  }
 }

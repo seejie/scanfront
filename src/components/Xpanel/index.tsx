@@ -3,7 +3,7 @@ import styles from "./index.module.less";
 
 const { wrapper, label, more, groupBtn, content, iconTitle, iconMore, moreTxt } = styles
 export default props => {
-  const {icon, title, more = '', btns, children} = props
+  const {icon, title, more = '', btns, children, height} = props
   
   return (
     <div className={wrapper}>
@@ -12,7 +12,7 @@ export default props => {
         <span>{title}</span>
         {
           more &&
-          <div className={moreTxt}>
+          <div className={moreTxt} onClick={more}>
             更多
             <img src="../assets/more.png" alt="" className={iconMore}/>
           </div>
@@ -21,7 +21,7 @@ export default props => {
           btns && <div>111</div>
         }
       </div>
-      <div className={content}>
+      <div className={content} style={{maxHeight: height}}>
         {children}
       </div>
     </div>

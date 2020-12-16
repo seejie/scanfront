@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styles from "./index.module.less";
+import { Radio } from 'antd';
 
-const { wrapper, label, more, groupBtn, content, iconTitle, iconMore, moreTxt } = styles
+const { wrapper, label, content, iconTitle, iconMore, moreTxt } = styles
 export default props => {
-  const {icon, title, more = '', btns, children, height} = props
+  const {icon, title, more = '', btns, children, height, onBtnsChange} = props
   
   return (
     <div className={wrapper}>
@@ -18,7 +19,13 @@ export default props => {
           </div>
         }
         {
-          btns && <div>111</div>
+          btns &&
+          <Radio.Group defaultValue="1d" onChange={onBtnsChange}>
+            <Radio.Button value="1d">24H</Radio.Button>
+            <Radio.Button value="7d">7天</Radio.Button>
+            <Radio.Button value="30d">30天</Radio.Button>
+            <Radio.Button value="1y">1年</Radio.Button>
+          </Radio.Group>
         }
       </div>
       <div className={content} style={{maxHeight: height}}>

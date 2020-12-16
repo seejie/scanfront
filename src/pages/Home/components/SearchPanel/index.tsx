@@ -8,7 +8,7 @@ const { wrapper, input, info } = styles
 export default ({ price = 0, profit = 0, total = 0 }) => {
   const txt = `FIL单价 ${price} | 24H平均挖矿收益 ${profit} ｜ 近24H产出量 ${total}`
 
-  const [keyword, setKeyword] = useState<string>('')
+  const [keyword, setKeyword] = useState('')
   const $input = useRef(null)
 
   const onchange = () => {

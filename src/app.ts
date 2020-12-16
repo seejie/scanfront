@@ -14,7 +14,6 @@ const appConfig: IAppConfig = {
         // },
         // response: {
         //   onConfig: (response) => {
-           
         //   },
         // },
       },

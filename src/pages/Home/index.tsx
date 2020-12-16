@@ -19,7 +19,7 @@ const { wrapper } = styles
 export default () => {
   
   // 网络概览
-  const [net, setNet] = useState<AnyObject>({})
+  const [net, setNet] = useState({})
   useEffect(() => { api.homestatic().then(res => setNet(res)) }, [])
 
   const history = useHistory()
@@ -53,7 +53,7 @@ export default () => {
           more={onMoreBaseFee}
           height={380}
         >
-          <BaseFee />
+          <BaseFee duration={'1d'}/>
         </Xpanel>
       </div>
 

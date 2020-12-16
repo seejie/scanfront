@@ -1,36 +1,27 @@
 import React, { useState } from "react";
 import styles from './index.module.less';
-import { Radio } from 'antd';
+import Xpanel from '../../components/Xpanel'
+import BaseFee from '../Home/components/BaseFee'
 
-const {title, panel, header, left, right, chart} = styles
+const {title} = styles
 
 export default () => {
+  const [duration, setDuration] = useState('1d')
+  const onBtnsChange = ({target: {value}}) => setDuration(value)
+
   return (
     <>
       <div className={title}>
         Gass统计
       </div>
 
-      <div className={panel}>
-        <div className={header}>
-          <div className={left}>
-            基础费率走势
-          </div>
-
-          <div className={right}>
-            <Radio.Group defaultValue="a">
-              <Radio.Button value="a">24H</Radio.Button>
-              <Radio.Button value="b">7天</Radio.Button>
-              <Radio.Button value="c">30天</Radio.Button>
-              <Radio.Button value="d">1年</Radio.Button>
-            </Radio.Group>
-          </div>
-        </div>
-
-        <div className={chart}>
-
-        </div>
-      </div>
+      <Xpanel
+        title="基础费率走势"
+        btns={true}
+        onBtnsChange={onBtnsChange}
+      >
+        <BaseFee duration={duration} />
+      </Xpanel>
     </>
   );
 };

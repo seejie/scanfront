@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./index.module.less";
 import DashItem from '../DashBItem'
 import bg1 from '../../../../../assets/block-bg1.png'

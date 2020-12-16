@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import styles from './index.module.less';
 import Xpanel from '@/components/Xpanel'
+import Account from './components/Account'
+import Overview from './components/Overview'
+import Statistics from './components/Statistics'
+import AccountChange from './components/AccountChange'
+import PowerChange from './components/PowerChange'
+import Xtable from './components/Xtable'
 
-const {title, panel, wrapper, header, row} = styles
+const {title, panel, wrapper} = styles
 
 export default () => {
   const id = window.location.href.split('/').reverse()[0]
+  const [duration, setDuration] = useState('1d')
+
+  const onBtnsChange = ({target: {value}}) => setDuration(value)
 
   return (
     <>
@@ -16,34 +25,38 @@ export default () => {
       <Xpanel 
         title="矿工概览"
       >
-        <div>矿工概览</div>
+        <Overview id={id}/>
       </Xpanel>
 
       <Xpanel 
         title="挖矿统计"
+        btns={true}
+        onBtnsChange={onBtnsChange}
       >
-        <div>挖矿统计</div>
+        <Statistics id={id} duration={duration}/>
       </Xpanel>
 
       <Xpanel 
         title="账户概览"
       >
-        <div>账户概览</div>
+        <Account id={id}/>
       </Xpanel>
 
       <div className={wrapper}>
-        <div className={panel}>
-          <div className={header}>用户变化</div>
-        </div>
+        <Xpanel
+          title="帐户变化"
+        >
+          <AccountChange id={id}/>
+        </Xpanel>
 
-        <div className={panel}>
-          <div className={header}>算力变化</div>
-        </div>
+        <Xpanel
+          title="算力变化"
+        >
+          <PowerChange id={id}/>
+        </Xpanel>
       </div>
 
-      <div className={panel}>
-        
-      </div>
+      <Xtable id={id}/>
     </>
   );
 };

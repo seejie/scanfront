@@ -9,7 +9,7 @@ import {useHistory} from 'react-router-dom'
 const { wrapper, row, col, td, icon, link, progress } = styles
 export default () => {
   // 算力走势
-  const [hashrateTrend, setHashrateTrend] = useState<Array<AnyObject>>([])
+  const [hashrateTrend, setHashrateTrend] = useState([])
   useEffect(() => { api.minerlistbypower().then(res => setHashrateTrend(res)) }, [])
 
   const history = useHistory()

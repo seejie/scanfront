@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.less";
-import { TinyArea, Line } from "@ant-design/charts";
+import { TinyArea } from "@ant-design/charts";
+import api from '@/api'
 
 const { wrapper, title, value, line } = styles
 export default ({arr, bgImg,}) => {
 
-  const data3 = [264, 417, 438, 887, 309, 397, 550, 
-    592, 492, 467, 513, 546, 983, 340
-  ]
+  // 14天消息数
+  const [recent, setRecent] = useState([])
+  useEffect(() => { api.histMsgNum().then(res => {
+    const arr = res.map(el => el.msg_num)
+    setRecent(arr)
+  }) }, [])
+
   const config = {
     height: 50,
     line: {
       color: "transparent",
     },
     autoFit: false,
-    data: data3,
+    data: recent,
     smooth: true,
     areaStyle: function areaStyle() {
       return { fillOpacity: 1, fill: "l(270) 0:#7CD4FF 1:#83FF6C " };

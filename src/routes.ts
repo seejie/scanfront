@@ -45,6 +45,4 @@ const routerConfig = [{
   ],
 }];
 
-console.log(routerConfig);
-
 export default routerConfig;

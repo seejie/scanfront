@@ -12,7 +12,6 @@ import zs2 from "../../../assets/zs2.png";
 import zs3 from "../../../assets/zs3.png";
 import zs4 from "../../../assets/zs4.png";
 import api from '@/api'
-import { AnyObject } from '../../constant/types'
 import {useHistory} from 'react-router-dom'
 
 const { wrapper } = styles
@@ -23,7 +22,7 @@ export default () => {
   useEffect(() => { api.homestatic().then(res => setNet(res)) }, [])
 
   const history = useHistory()
-  const onMoreHashRate = () => {}
+  const onMoreHashRate = () => history.push(`/rank`)
   const onMoreBaseFee = () => history.push(`/statistics`)
   const onMoreNewestBlock = () => {}
   
@@ -42,7 +41,7 @@ export default () => {
           icon={zs} 
           title="算力走势"
           more={onMoreHashRate}
-          height={380}
+          height={400}
         >
           <HashRate />
         </Xpanel>
@@ -51,7 +50,7 @@ export default () => {
           icon={zs2} 
           title="24HBass Fee走势"
           more={onMoreBaseFee}
-          height={380}
+          height={400}
         >
           <BaseFee duration={'1d'}/>
         </Xpanel>

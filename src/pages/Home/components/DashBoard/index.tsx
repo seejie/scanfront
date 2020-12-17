@@ -9,8 +9,11 @@ import bg4 from '../../../../../assets/block-bg4.png'
 const { wrapper } = styles
 export default ({info}) => {
   const { LastHeight, LastBlockTime, NetworkPower, PowerIncrement, ActiveMiner, PledgeTotal, TotalCirculation} = info
+  const now = new Date().getTime() / 1000
+  const time = Math.round((now - (LastBlockTime || 0)) / 60) 
+  const str = `${time}s 前`
 
-  const first = ['区块高度', LastHeight, '最新区块时间', LastBlockTime]
+  const first = ['区块高度', LastHeight, '最新区块时间', str]
   const second = ['全网有效算力', NetworkPower, '24H FIL增量', PowerIncrement]
   const third = ['活跃矿工数', ActiveMiner, '14天历史消息数']
   const fourth = ['质押总量', PledgeTotal, '流通总量', TotalCirculation]

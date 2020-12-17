@@ -8,7 +8,7 @@ import AccountChange from './components/AccountChange'
 import PowerChange from './components/PowerChange'
 import Xtable from './components/Xtable'
 
-const {title, panel, wrapper} = styles
+const {title, wrapper} = styles
 
 export default () => {
   const id = window.location.href.split('/').reverse()[0]

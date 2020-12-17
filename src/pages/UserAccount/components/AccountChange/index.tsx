@@ -10,7 +10,7 @@ export default ({id}) => {
       const n = 1000000000000000000 
       arr.forEach(el => {
         const {timestamp, available_balance, balance, pledge_balance} = el
-        const date = new Date(timestamp).toLocaleString().replace('下午', '').replace('上午', '')
+        const date = new Date(timestamp * 1000).toLocaleString().replace('下午', '').replace('上午', '')
         list.push({
           date,
           type: '总余额',

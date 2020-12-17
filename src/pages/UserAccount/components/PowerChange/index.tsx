@@ -12,7 +12,7 @@ export default ({id}) => {
         return {
           quality_adj_power: quality_adj_power / n,
           raw_byte_power: raw_byte_power / n,
-          time: new Date(timestamp).toLocaleString().replace('下午', '').replace('上午', '')
+          time: new Date(timestamp * 1000).toLocaleString().replace('下午', '').replace('上午', '')
         }
       })
       setData(list)

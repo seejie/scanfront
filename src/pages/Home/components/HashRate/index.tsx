@@ -39,8 +39,7 @@ export default () => {
             <div className={td}>
               <Progress
                 className={progress}
-                percent={el.tag ? Number(el.tag) : 0}
-                // percent={50}
+                percent={el.proportion}
                 showInfo={false}
                 size="small"
               />

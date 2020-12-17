@@ -88,7 +88,7 @@ export default ({duration}) => {
 
   return (
     <>
-      <Line {...config} />
+      {/* <Line {...config} /> */}
     </>
   )
 }

@@ -1,77 +1,55 @@
-import React,{useEffect} from "react";
-// todo
-import { ConfigProvider, Row, Col, Layout } from "antd";
+import React from "react";
+import { ConfigProvider } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
 import zhCN from "antd/lib/locale/zh_CN";
 import bottomLogo from "../../../assets/bottom-logo.png";
-const { Header, Content, Footer } = Layout;
+import styles from './index.module.less'
+import {useHistory} from 'react-router-dom'
+import classNames from 'classnames'
 
-export default function BasicLayout({ children }) {
+const {header, main, footer, menus, menu, logo, last, wrapper, row} = styles
+export default ({ children }) => {
+  const history = useHistory()
+  const link2 = path => history.push(`/${path}`)
+
   return (
     <ConfigProvider locale={zhCN}>
-      <div>
-        <Header style={{ backgroundColor: "#fff" }}>
-          <div className="main-width flex-end">
-            <div className="mr40">
-              <span onClick={(e) => e.preventDefault()}>首页</span>
-            </div>
-            <div className="mr40 ">
-              <span onClick={(e) => e.preventDefault()}>区块链</span>
-            </div>
-            <div className="mr40">
-              <span onClick={(e) => e.preventDefault()}>排行榜</span>
-            </div>
-            <div className="mr40">
-              <span onClick={(e) => e.preventDefault()}>统计</span>
-            </div>
-            <div>
-              <GlobalOutlined style={{ }} />
-              <span className="fz14 ml10 ">当前网络：Mainnet</span>
-            </div>
-          </div>
-        </Header>
+      <div className={header}>
+        <img className={logo} src="../assets/logo.png" alt="logo" onClick={link2.bind(this, 'home')}/>
+        <div className={menus}>
+          <span className={menu} onClick={link2.bind(this, 'home')}>首页</span>
+          <span className={menu} onClick={link2.bind(this, 'home')}>区块链</span>
+          <span className={menu} onClick={link2.bind(this, 'home')}>排行榜</span>
+          <span className={menu} onClick={link2.bind(this, 'home')}>统计</span>
+          <span className={classNames([menu, last])} >
+            <GlobalOutlined />
+            当前网络：Mainnet
+          </span>
+        </div>
+      </div>
 
-        <Content className="top-bg">
-          <div className="main-width margin-center" style={{ minHeight: "100vh", paddingTop: ".38rem" }}>
-            {children}
+      <div className={main}>
+        <div className={wrapper}>{children}</div>
+      </div>
+
+      <div className={footer}>
+        <div className={wrapper}>
+          <div className={row}>
+            <img src={bottomLogo} alt=""/>
           </div>
-        </Content>
-        <Footer className="bottom-bg">
-          <div className="main-width margin-center">
-            <Row>
-              <Col span={12}>
-                <div style={{ marginTop: ".26rem" }}>
-                  <img src={bottomLogo} style={{width:'2.2rem',height:'.4rem'}} />
-                </div>
-                <span
-                  className="fz14 colorF mt32"
-                  style={{ textAlign: "left",display:'block' }}
-                >
-                  Bheroscan是Filecoin区块浏览器及数据服务平台，提供基于Filecoin的各类挖矿排行，区块链数据查询，可视化图表等一站式数据服务。
-                </span>
-                <div className="flex mt40">
-                  中文
-                </div>
-              </Col>
-              <Col span={12}>
-                <div className=" flex-end" style={{ marginTop: ".26rem" }}>
-                  <div className="mr40 colorF">
-                    <span onClick={(e) => e.preventDefault()}>首页</span>
-                  </div>
-                  <div className="mr40 colorF">
-                    <span onClick={(e) => e.preventDefault()}>区块链</span>
-                  </div>
-                  <div className="mr40 colorF">
-                    <span onClick={(e) => e.preventDefault()}>排行榜</span>
-                  </div>
-                  <div className=" colorF">
-                    <span onClick={(e) => e.preventDefault()}>统计</span>
-                  </div>
-                </div>
-              </Col>
-            </Row>
+          <div className={row}>
+            <span className={menu} onClick={link2.bind(this, 'home')}>首页</span>
+            <span className={menu} onClick={link2.bind(this, 'home')}>区块链</span>
+            <span className={menu} onClick={link2.bind(this, 'home')}>排行榜</span>
+            <span className={menu} onClick={link2.bind(this, 'home')}>统计</span>
           </div>
-        </Footer>
+          <div className={row}>
+            Bheroscan是Filecoin区块浏览器及数据服务平台，提供基于Filecoin的各类挖矿排行，区块链数据查询，可视化图表等一站式数据服务。
+          </div>
+          <div className={row}>
+            中文
+          </div>
+        </div>
       </div>
     </ConfigProvider>
   );

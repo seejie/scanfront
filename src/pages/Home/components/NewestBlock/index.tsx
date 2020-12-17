@@ -1,30 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.less";
-import { useWebSocket } from "ahooks";
+import classNames from 'classnames'
 
-const { wrapper, row, col } = styles
+const { wrapper, row, col, heightlight } = styles
 export default () => {
-  // todo
-  const {
-    readyState,
-    sendMessage,
-    latestMessage,
-    disconnect,
-    connect,
-  } = useWebSocket("ws://115.236.22.234:11224/ws")
+  const [list, setList] = useState([])
+  useEffect(() =>{
+    const ws = new WebSocket("ws://115.236.22.234:11224/ws");
+    ws.onmessage = ({data}) => {
+      let list
+      try {
+        list = JSON.parse(data)
+      } catch (error) {
+        list = []
+      }
+      setList(list)
+    }
+  }, [])
+  
 
   const items = () => {
-    const list = [{name: 1},{name: 2},{name: 3},{name: 4},{name: 5},{name: 6},{name: 7},{name: 8},{name: 9}]
+    const now = Math.round(new Date().getTime() / 1000)
     return list.map((el, idx) => {
+      const {height, block_info} = el
+      const handleClick = () => console.log(el)
+      const time = Math.round((now - ((block_info[0] || {}).timestap || 0)) / 60)
+      const str = `${time}s 前`
+      console.log(block_info)
+
+      let ids = '', miners = '', tags = '', msg = '', rewards = ''
+      block_info.forEach(el => {
+        const head = el.cid.substr(0,8)
+        const tail = el.cid.substr(-8, 8)
+        ids += `${head}...${tail}` +'\r\n'
+        miners += el.miner + '\r\n'
+        tags += el.tag + '\r\n'
+        msg += el.message + '\r\n'
+        rewards += el.reward + '\r\n'
+      });
+      
       return (
         <div className={row} key={idx}>
-          <div className={col}>{el.name}</div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
+          <div className={classNames([col, heightlight])} onClick={handleClick}>
+            {height}
+          </div>
+          <div className={col}>{str}</div>
+          <div className={col}>{ids}</div>
+          <div className={col}>{miners}</div>
+          <div className={col}>{tags}</div>
+          <div className={col}>{msg}</div>
+          <div className={col}>{rewards}</div>
         </div>
       )
     })

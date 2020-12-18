@@ -9,13 +9,19 @@
   }
   .main{
     border-top: 1px solid rgba(51, 51, 51, 0.18);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     padding-top: 20px;
     .row{
-      width: calc(100% / 8);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
       text-align: center;
+      .col{
+        width: calc(100% / 8);
+        flex-wrap: wrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
     }
   }
 }

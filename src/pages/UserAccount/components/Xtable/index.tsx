@@ -3,11 +3,12 @@ import styles from "./index.module.less";
 import { Radio, Select } from 'antd';
 import api from "@/api";
 import classNames from 'classnames'
+import {tableTile} from '@/constant/types'
+import {abbr, timestr} from '@/utils'
 
-const { wrapper, header, main, col, link } = styles
+const { wrapper, header, main, row, col, link } = styles
 const { Option } = Select
 export default ({id}) => {
-
   const [list, setList] = useState([])
   const [methods, setMethods] = useState(null)
   const [type, setType] = useState('message')
@@ -15,37 +16,82 @@ export default ({id}) => {
     if (type === 'deadLines') return
     const params = {
       size: 10,
-      miner: id,
+      // miner: id,
+      miner: 'f02399',
       page: 1,
-      // method: ''
+      method: ''
     }
 
     api[`${type}List`](params).then((res) => {
       console.log(res)
-      const {List, methods} = res
+      const {List, Methods = null} = res
       setList(List)
-      setMethods(methods)
+      setMethods(Methods)
     })
   }, [type])
 
   const onBtnsChange = ({target: {value}}) => setType(value)
-  const handleChange = () => {}
+  const handleChange = (res) => console.log(res)
+  const titles = () => tableTile[type].map((el, idx) => <div className={col} key={idx}>{el}</div>)
 
   const items = () => {
-    return list.map(el => {
-      console.log(el)
+    return list.map((el, idx) => {
+      if (type === 'message') {
+        return (
+          <div className={row} key={idx}>
+            <div className={col}>{abbr(el.cid, 4)}</div>
+            <div className={classNames([col, link])}>{el.height}</div>
+            <div className={col}>{timestr(el.timestamp)}</div>
+            <div className={col}>{abbr(el.from, 4)}</div>
+            <div className={col}>{el.to}</div>
+            <div className={col}>{el.method}</div>
+            <div className={col}>{el.value}</div>
+            <div className={col}>{el.total_cost}</div>
+          </div>
+        )
+      } else if (type === 'block') {
+        return (
+          <div className={row} key={idx}>
+            <div className={classNames([col, link])}>{el.height}</div>
+            <div className={col}>{abbr(el.block_cid, 4)}</div>
+            <div className={col}>{el.reward}</div>
+            <div className={col}>{timestr(el.timestamp)}</div>
+            <div className={col}>{el.message_num}</div>
+            <div className={col}></div>
+          </div>
+        )
+      } else if (type === 'transfer') {
+        return (
+          <div className={row} key={idx}>
+            <div className={col}>1</div>
+            <div className={classNames([col, link])}>2</div>
+            <div className={col}>3</div>
+            <div className={col}>4</div>
+            <div className={col}>5</div>
+            <div className={col}>6</div>
+          </div>
+        )
+      } else if (type === 'deadLines') {
+        return (
+          <div className={row} key={idx}>
+            <div className={col}>1</div>
+            <div className={classNames([col, link])}>2</div>
+            <div className={col}>3</div>
+            <div className={col}>4</div>
+            <div className={col}>5</div>
+            <div className={col}>6</div>
+            <div className={col}>7</div>
+            <div className={col}>8</div>
+          </div>
+        )
+      }
+    })
+  }
+
+  const options = () => {
+    return methods.map(el => {
       return (
-        <>
-          <div className={col}></div>
-          <div className={classNames([col, link])}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-          <div className={col}></div>
-        </>
+        <Option value={el} key={el}>{el}</Option>
       )
     })
   }
@@ -62,22 +108,15 @@ export default ({id}) => {
 
         { 
           methods && 
-          <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
-            <Option value="Yiminghe">yiminghe</Option>
+          <Select style={{ width: 120 }} onChange={handleChange}>
+            {options()}
           </Select>
         }
       </div>
       <div className={main}>
-        <div className={col}>消息ID</div>
-        <div className={col}>区块高度</div>
-        <div className={col}>时间</div>
-        <div className={col}>发送方</div>
-        <div className={col}>接收方</div>
-        <div className={col}>方法</div>
-        <div className={col}>金额</div>
-        <div className={col}>附加费</div>
+        <div className={row}>
+          {titles()}
+        </div>
         {items()}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.less";
 import classNames from 'classnames'
+import {formatTimeStamp, abbr} from '@/utils'
 
 const { wrapper, row, col, heightlight } = styles
 export default () => {
@@ -24,15 +25,11 @@ export default () => {
     return list.map((el, idx) => {
       const {height, block_info} = el
       const handleClick = () => console.log(el)
-      const time = Math.round((now - ((block_info[0] || {}).timestap || 0)) / 60)
-      const str = `${time}s 前`
-      console.log(block_info)
+      const time = formatTimeStamp((block_info[0] || {}).timestap || 0, now)
 
       let ids = '', miners = '', tags = '', msg = '', rewards = ''
       block_info.forEach(el => {
-        const head = el.cid.substr(0,8)
-        const tail = el.cid.substr(-8, 8)
-        ids += `${head}...${tail}` +'\r\n'
+        ids += abbr(el.cid) +'\r\n'
         miners += el.miner + '\r\n'
         tags += el.tag + '\r\n'
         msg += el.message + '\r\n'
@@ -44,7 +41,7 @@ export default () => {
           <div className={classNames([col, heightlight])} onClick={handleClick}>
             {height}
           </div>
-          <div className={col}>{str}</div>
+          <div className={col}>{time}</div>
           <div className={col}>{ids}</div>
           <div className={col}>{miners}</div>
           <div className={col}>{tags}</div>

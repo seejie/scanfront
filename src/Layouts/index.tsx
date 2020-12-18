@@ -2,7 +2,7 @@ import React from "react";
 import { ConfigProvider } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
 import zhCN from "antd/lib/locale/zh_CN";
-import bottomLogo from "../../../assets/bottom-logo.png";
+import bottomLogo from "../../assets/bottom-logo.png";
 import styles from './index.module.less'
 import {useHistory} from 'react-router-dom'
 import classNames from 'classnames'

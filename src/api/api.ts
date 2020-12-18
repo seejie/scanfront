@@ -26,4 +26,6 @@ export default {
   messageList: `${api}miner/GetMessageList`,
   // 区块列表
   blockList: `${api}miner/GetBlockList`,
+  // deadLines
+  deadLinesList: `${api}miner/GetDeadLinesList`,
 }

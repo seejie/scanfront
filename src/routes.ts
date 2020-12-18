@@ -1,4 +1,4 @@
-import Layout from "@/Layouts/BasicLayout";
+import Layout from "@/Layouts";
 import NotFound from "@/components/NotFound";
 import Home from "@/pages/Home";
 import UserAccount from "@/pages/UserAccount";

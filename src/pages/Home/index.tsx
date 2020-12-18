@@ -5,7 +5,6 @@ import BaseFee from './components/BaseFee'
 import HashRate from './components/HashRate'
 import NewestBlock from './components/NewestBlock'
 import Xpanel from '@/components/Xpanel'
-import Ranking from "./components/Ranking";
 import styles from "./index.module.less";
 import zs from "../../../assets/zs.png";
 import zs2 from "../../../assets/zs2.png";
@@ -70,8 +69,6 @@ export default () => {
         icon={zs3} 
         title="合作伙伴"
       ></Xpanel>
-
-      {/* <Ranking /> */}
     </>
   );
 };

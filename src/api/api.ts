@@ -28,4 +28,8 @@ export default {
   blockList: `${api}miner/GetBlockList`,
   // deadLines
   deadLinesList: `${api}miner/GetDeadLinesList`,
+  // 区块详情|区块概览
+  blockOverview: `${api}block/BlockOverview`,
+  // 区块详情|消息列表
+  blockMessageList: `${api}block/BlockMessageList`,
 }

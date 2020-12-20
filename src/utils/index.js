@@ -29,7 +29,7 @@ export const abbr = (txt, len = 8) => {
   return `${head}...${tail}`
 }
 
-export const timestr = n => {
+export const timeStr = n => {
   if (!n) return ''
   const timestamp = +n * 1000
   const time = new Date(timestamp).toLocaleString()

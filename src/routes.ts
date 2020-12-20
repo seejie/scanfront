@@ -5,7 +5,7 @@ import UserAccount from "@/pages/UserAccount";
 import Rank from "@/pages/Rank";
 import Statistics from "@/pages/Statistics";
 import BlockList from "@/pages/BlockList";
-import BlockInfo from "@/pages/BlockInfo";
+import Block from "@/pages/Block";
 
 const routerConfig = [{
   path: "/",
@@ -36,9 +36,9 @@ const routerConfig = [{
       exact: true, 
       component: BlockList,
     }, { 
-      path: "/blockInfo", 
+      path: "/block/:id", 
       exact: true, 
-      component: BlockInfo,
+      component: Block,
     }, {
       component: NotFound,
     },

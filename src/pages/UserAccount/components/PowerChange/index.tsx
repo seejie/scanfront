@@ -1,7 +1,7 @@
 import api from "@/api";
 import React, { useEffect, useState } from "react";
 import { DualAxes } from '@ant-design/charts';
-import {timestr} from '@/utils'
+import {timeStr} from '@/utils'
 
 export default ({id}) => {
   const [data, setData] = useState({})
@@ -13,7 +13,7 @@ export default ({id}) => {
         return {
           quality_adj_power: quality_adj_power / n,
           raw_byte_power: raw_byte_power / n,
-          time: timestr(timestamp)
+          time: timeStr(timestamp)
         }
       })
       setData(list)

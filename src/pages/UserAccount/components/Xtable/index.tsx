@@ -4,22 +4,27 @@ import { Radio, Select } from 'antd';
 import api from "@/api";
 import classNames from 'classnames'
 import {tableTile} from '@/constant/types'
-import {abbr, timestr} from '@/utils'
+import {abbr, timeStr} from '@/utils'
+import {useHistory} from 'react-router-dom'
 
 const { wrapper, header, main, row, col, link } = styles
 const { Option } = Select
 export default ({id}) => {
   const [list, setList] = useState([])
   const [methods, setMethods] = useState(null)
+  // todo 翻页
+  const [page, setPage] = useState(1)
+  const [size, setSize] = useState(10)
   const [type, setType] = useState('message')
+  const [method, setMethod] = useState('')
   useEffect(() => {
     if (type === 'deadLines') return
     const params = {
-      size: 10,
+      size,
       // miner: id,
       miner: 'f02399',
-      page: 1,
-      method: ''
+      page,
+      method
     }
 
     api[`${type}List`](params).then((res) => {
@@ -28,20 +33,25 @@ export default ({id}) => {
       setList(List)
       setMethods(Methods)
     })
-  }, [type])
+  }, [type, method, page, size])
 
   const onBtnsChange = ({target: {value}}) => setType(value)
-  const handleChange = (res) => console.log(res)
+  const handleChange = val => setMethod(val)
   const titles = () => tableTile[type].map((el, idx) => <div className={col} key={idx}>{el}</div>)
+
+  const history = useHistory()
+  const jump2block = id => history.push(`/block/${id}`)
 
   const items = () => {
     return list.map((el, idx) => {
+      const handleClick = () => el.block_cid && jump2block(el.block_cid)
+
       if (type === 'message') {
         return (
           <div className={row} key={idx}>
-            <div className={col}>{abbr(el.cid, 4)}</div>
-            <div className={classNames([col, link])}>{el.height}</div>
-            <div className={col}>{timestr(el.timestamp)}</div>
+            <div className={classNames([col, link])}>{abbr(el.cid, 4)}</div>
+            <div className={col}>{el.height}</div>
+            <div className={col}>{timeStr(el.timestamp)}</div>
             <div className={col}>{abbr(el.from, 4)}</div>
             <div className={col}>{el.to}</div>
             <div className={col}>{el.method}</div>
@@ -52,10 +62,10 @@ export default ({id}) => {
       } else if (type === 'block') {
         return (
           <div className={row} key={idx}>
-            <div className={classNames([col, link])}>{el.height}</div>
-            <div className={col}>{abbr(el.block_cid, 4)}</div>
+            <div className={col} onClick={handleClick}>{el.height}</div>
+            <div className={classNames([col, link])}>{abbr(el.block_cid, 4)}</div>
             <div className={col}>{el.reward}</div>
-            <div className={col}>{timestr(el.timestamp)}</div>
+            <div className={col}>{timeStr(el.timestamp)}</div>
             <div className={col}>{el.message_num}</div>
             <div className={col}></div>
           </div>
@@ -89,6 +99,7 @@ export default ({id}) => {
   }
 
   const options = () => {
+    if (!methods) return null
     return methods.map(el => {
       return (
         <Option value={el} key={el}>{el}</Option>

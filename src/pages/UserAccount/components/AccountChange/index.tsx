@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "@/api";
 import { Line } from '@ant-design/charts';
-import {timestr} from '@/utils'
+import {timeStr} from '@/utils'
 
 export default ({id}) => {
   const [data, setData] = useState([])
@@ -11,7 +11,7 @@ export default ({id}) => {
       const n = 1000000000000000000 
       arr.forEach(el => {
         const {timestamp, available_balance, balance, pledge_balance} = el
-        const date = timestr(timestamp)
+        const date = timeStr(timestamp)
         list.push({
           date,
           type: '总余额',

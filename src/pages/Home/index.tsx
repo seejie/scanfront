@@ -23,7 +23,7 @@ export default () => {
   const history = useHistory()
   const onMoreHashRate = () => history.push(`/rank`)
   const onMoreBaseFee = () => history.push(`/statistics`)
-  const onMoreNewestBlock = () => {}
+  const onMoreNewestBlock = () => history.push(`/blockList`)
   
   return (
     <>

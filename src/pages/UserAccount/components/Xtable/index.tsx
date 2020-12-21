@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.less";
-import { Radio, Select } from 'antd';
+import { Radio, Select, Pagination } from 'antd';
 import api from "@/api";
 import classNames from 'classnames'
 import {tableTile} from '@/constant/types'
 import {abbr, timeStr} from '@/utils'
 import {useHistory} from 'react-router-dom'
 
-const { wrapper, header, main, row, col, link } = styles
+const { wrapper, header, main, row, col, link, pagination } = styles
 const { Option } = Select
 export default ({id}) => {
   const [list, setList] = useState([])
   const [methods, setMethods] = useState(null)
   // todo 翻页
+  const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
-  const [size, setSize] = useState(10)
   const [type, setType] = useState('message')
   const [method, setMethod] = useState('')
   useEffect(() => {
     if (type === 'deadLines') return
     const params = {
-      size,
+      size: 10,
       // miner: id,
       miner: 'f02399',
       page,
@@ -29,13 +29,20 @@ export default ({id}) => {
 
     api[`${type}List`](params).then((res) => {
       console.log(res)
-      const {List, Methods = null} = res
+      const {List, Methods = null, Total} = res
       setList(List)
       setMethods(Methods)
+      setTotal(Total)
     })
-  }, [type, method, page, size])
+  }, [type, method, page])
 
-  const onBtnsChange = ({target: {value}}) => setType(value)
+  const onBtnsChange = ({target: {value}}) => {
+    setType(value)
+    setTotal(0)
+    setMethods(null)
+    setPage(1)
+    setList([])
+  }
   const handleChange = val => setMethod(val)
   const titles = () => tableTile[type].map((el, idx) => <div className={col} key={idx}>{el}</div>)
 
@@ -107,6 +114,8 @@ export default ({id}) => {
     })
   }
 
+  const onPageChanged = num => setPage(num)
+
   return (
     <div className={wrapper}>
       <div className={header}>
@@ -130,6 +139,14 @@ export default ({id}) => {
         </div>
         {items()}
       </div>
+
+      <Pagination 
+        className={pagination}
+        defaultCurrent={1} 
+        total={total} 
+        showQuickJumper
+        showSizeChanger={false}
+        onChange={onPageChanged}/>
     </div>
   )
 }

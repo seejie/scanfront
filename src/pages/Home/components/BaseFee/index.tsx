@@ -10,7 +10,8 @@ export default ({duration}) => {
       const list = res.map(el =>{
         return {
           time: moment(el.timestamp).format("HH:mm"),
-          value: el.base_fee * Math.pow(10, 9),
+          value: el.base_fee,
+          // value: el.base_fee / Math.pow(10, 9),
         }
       })
       console.log(list)
@@ -48,6 +49,17 @@ export default ({duration}) => {
     xField: 'time',
     yField: 'value',
     label: {},
+    // yAxis: {
+    //   label: {
+    //     formatter: function formatter(v) {
+    //       if (v === '0') {
+    //         return v + "attoFIL";
+    //       } else {
+    //         return Number(v).toFixed(2) + "nanoFIL";
+    //       }
+    //     },
+    //   },
+    // },
     point: {
       size: 5,
       shape: 'diamond',
@@ -88,7 +100,7 @@ export default ({duration}) => {
 
   return (
     <>
-      {/* <Line {...config} /> */}
+      <Line {...config} />
     </>
   )
 }

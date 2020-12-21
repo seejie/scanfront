@@ -134,12 +134,12 @@ export default () => {
           消息列表
         </div>
 
-        <Table 
+        {/* <Table 
           columns={columns} 
           dataSource={list} 
           size="middle" 
           pagination={{ position: ['bottomCenter'] }}
-        />
+        /> */}
       </div>
     </>
   );

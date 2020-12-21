@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.less";
 import api from '@/api'
-import { AnyObject } from '../../constant/types'
 import fil from "../../../../../assets/fil.png";
 import { Progress } from "antd";
 import {useHistory} from 'react-router-dom'
+import classNames from 'classnames'
 
 const { wrapper, row, col, td, icon, link, progress } = styles
 export default () => {
@@ -35,7 +35,7 @@ export default () => {
               </span>
             </div>
           </div>
-          <div className={col}>
+          <div className={classNames([col, progress])}>
             <div className={td}>
               <Progress
                 className={progress}

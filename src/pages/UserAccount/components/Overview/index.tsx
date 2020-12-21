@@ -13,11 +13,11 @@ export default ({id}) => {
   }, [id])
 
   const data = [{
-      type: '分类一',
-      value: 27,
+      type: '可用余额',
+      value: parseInt(overview?.available_balance || 0),
     }, {
-      type: '分类二',
-      value: 25,
+      type: '质押余额',
+      value: parseInt(overview?.pledge_founds || 0),
     }
   ];
 

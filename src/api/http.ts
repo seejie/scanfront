@@ -9,7 +9,12 @@ const http = axios.create({
 })
 
 http.interceptors.response.use(
-  res => res,
+  res => {
+    const {data: {PageName}} = res
+    if (PageName !== 'ErrorPage') return res
+    location.href = `//${location.host}/#/404`
+    throw 'server error'
+  },
   err => {
     console.error(err)
     return Promise.reject(err)

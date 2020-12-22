@@ -7,7 +7,7 @@ export default {
   // basefee
   basefee: `${api}basefee`,
   // 搜索信息ID/区块哈希/矿工ID
-  queryTarget: `${api}queryTarget`,
+  queryTarget: `${api}Search`,
   // 最近14天消息数
   histMsgNum: `${api}histMsgNum`,
   // 矿工账户|矿工概览

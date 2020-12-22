@@ -6,6 +6,7 @@ import Rank from "@/pages/Rank";
 import Statistics from "@/pages/Statistics";
 import BlockList from "@/pages/BlockList";
 import Block from "@/pages/Block";
+import Height from "@/pages/Height";
 
 const routerConfig = [{
   path: "/",
@@ -39,6 +40,10 @@ const routerConfig = [{
       path: "/block/:id", 
       exact: true, 
       component: Block,
+    }, { 
+      path: "/height/:id", 
+      exact: true, 
+      component: Height,
     }, {
       component: NotFound,
     },

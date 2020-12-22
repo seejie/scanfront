@@ -13,12 +13,15 @@ export default ({ price = 0, profit = 0, total = 0 }) => {
 
   const onchange = () => {
     const obj = $input.current || { state: { value: ''} }
-    setKeyword(obj?.state?.value)
+    // todo 会晚一次，是上一次的结果
+    console.log(obj?.state?.value, 222)
+    setKeyword(obj?.state?.value || '')
   }
 
   const onSearch = () => {
+    console.log(keyword, 111)
     if (!keyword.trim()) return
-    api.queryTarget({ keyword }).then(res => {
+    api.queryTarget({ search: keyword }).then(res => {
       console.log(res)
     })
   }

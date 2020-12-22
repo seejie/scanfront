@@ -18,6 +18,9 @@ export default ({id}) => {
     }, {
       type: '质押余额',
       value: parseInt(overview?.pledge_founds || 0),
+    }, {
+      type: '奖励锁仓',
+      value: parseInt(overview?.vesting_founds || 0),
     }
   ];
 
@@ -51,6 +54,7 @@ export default ({id}) => {
         <div className={col}>
           <span>可用余额：{overview.available_balance}</span>
           <span>质押余额：{overview.pledge_founds}</span>
+          <span>奖励锁仓：{overview.vesting_founds}</span>
         </div>
       </div>
 
@@ -70,7 +74,7 @@ export default ({id}) => {
         </div>
         <div className={row}>
           累计出块奖励：{overview.mined_block_reward}
-          <span className={right}>扇区大小：{overview.sector}</span>
+          <span className={right}>扇区大小：{overview.sector_size}</span>
         </div>
         <div className={row}>
           扇区状态：{overview.raw_bytes_power}

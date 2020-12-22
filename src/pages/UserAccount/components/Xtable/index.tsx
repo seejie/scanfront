@@ -21,8 +21,7 @@ export default ({id}) => {
     if (type === 'deadLines') return
     const params = {
       size: 10,
-      // miner: id,
-      miner: 'f02399',
+      miner: id,
       page,
       method
     }

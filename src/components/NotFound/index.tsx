@@ -1,15 +1,13 @@
 import React from 'react';
+import styles from './index.module.less'
 
-export interface Props {
-  name: string;
-}
-
-const Greeting = ({ name }: Props) => {
+const {wrapper} = styles
+const notFound = () => {
   return (
-    <div>
-      <h2>404</h2>
+    <div className={wrapper}>
+      <img src="../assets/404.png" alt="404"/>
     </div>
   );
 };
 
-export default Greeting;
+export default notFound;

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.module.less";
 import classNames from 'classnames'
 import {formatTimeStamp, abbr} from '@/utils'
+import {useHistory} from 'react-router-dom'
 
-const { wrapper, row, col, heightlight } = styles
+const { wrapper, row, col, highlight } = styles
 export default () => {
   const [list, setList] = useState([])
   useEffect(() =>{
@@ -19,12 +20,12 @@ export default () => {
     }
   }, [])
   
-
+  const history = useHistory()
   const items = () => {
     const now = Math.round(new Date().getTime() / 1000)
     return list.map((el, idx) => {
       const {height, block_info} = el
-      const handleClick = () => console.log(el)
+      const handleClick = () => history.push(`/height/${height}`)
       const time = formatTimeStamp((block_info[0] || {}).timestap || 0, now)
 
       let ids = '', miners = '', tags = '', msg = '', rewards = ''
@@ -38,7 +39,7 @@ export default () => {
       
       return (
         <div className={row} key={idx}>
-          <div className={classNames([col, heightlight])} onClick={handleClick}>
+          <div className={classNames([col, highlight])} onClick={handleClick}>
             {height}
           </div>
           <div className={col}>{time}</div>

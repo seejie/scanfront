@@ -9,9 +9,8 @@ export default ({duration}) => {
     api.basefee({duration}).then(res => {
       const list = res.map(el =>{
         return {
-          time: moment(el.timestamp).format("HH:mm"),
+          time: moment(el.timestamp * 1000).format("HH:mm"),
           value: el.base_fee,
-          // value: el.base_fee / Math.pow(10, 9),
         }
       })
       console.log(list)
@@ -43,23 +42,19 @@ export default ({duration}) => {
   //     }
   //   }
   // }
-
+// todo
   const config = {
     data,
     xField: 'time',
     yField: 'value',
     label: {},
-    // yAxis: {
-    //   label: {
-    //     formatter: function formatter(v) {
-    //       if (v === '0') {
-    //         return v + "attoFIL";
-    //       } else {
-    //         return Number(v).toFixed(2) + "nanoFIL";
-    //       }
-    //     },
-    //   },
-    // },
+    yAxis: {
+      label: {
+        formatter: function formatter(v) {
+          return (v | 0) + ' nonaFil'
+        },
+      },
+    },
     point: {
       size: 5,
       shape: 'diamond',
@@ -80,27 +75,27 @@ export default ({duration}) => {
         },
       },
     },
-    theme: {
-      geometries: {
-        point: {
-          diamond: {
-            active: {
-              style: {
-                shadowColor: '#FCEBB9',
-                shadowBlur: 2,
-                stroke: '#F6BD16',
-              },
-            },
-          },
-        },
-      },
-    },
+    // theme: {
+    //   geometries: {
+    //     point: {
+    //       diamond: {
+    //         active: {
+    //           style: {
+    //             shadowColor: '#FCEBB9',
+    //             shadowBlur: 2,
+    //             stroke: '#F6BD16',
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
     interactions: [{ type: 'marker-active' }],
   };
 
   return (
     <>
-      <Line {...config} />
+      {/* <Line {...config} /> */}
     </>
   )
 }

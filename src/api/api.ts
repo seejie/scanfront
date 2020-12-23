@@ -42,4 +42,6 @@ export default {
     method: 'post',
     url: `${api}miner/MinerAuthentication`
   },
+  // 区块高度详情
+  heightInfo: `${api}GetEpochInfo`,
 }

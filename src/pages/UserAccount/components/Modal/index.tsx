@@ -21,7 +21,13 @@ export default props => {
 
   const handleOk = () => {
     setConfirmLoading(true);
-    api.setSignature({miner: id, sign: ''}).then(res => {
+    api.setSignature({
+      miner: id, 
+      sign: '',
+      chinese_nick: '',
+      connect: '',
+      english_nick: ''
+    }).then(res => {
       setConfirmLoading(false);
       toggleVisible(false);
       setObj({})

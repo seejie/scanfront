@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.less'
 import classNames from 'classnames'
+import api from '@/api';
 
 const {title, wrapper, top, list, row, label, value, blod, block, highlight} = styles
 export default () => {
   const id = window.location.href.split('/').reverse()[0]
+  const [obj, setObj] = useState({})
+  useEffect(() => {
+    api.heightInfo({size: id}).then(res => {
+      console.log(res)
+      // setObj(res)
+    })
+  }, [id])
 
   const blocks = () => {
     const list = [1]

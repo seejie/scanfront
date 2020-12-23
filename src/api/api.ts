@@ -32,4 +32,14 @@ export default {
   blockOverview: `${api}block/BlockOverview`,
   // 区块详情|消息列表
   blockMessageList: `${api}block/BlockMessageList`,
+  // 签名展示信息
+  getSignature: {
+    method: 'post',
+    url: `${api}miner/MinerPreAuthentication`,
+  },
+  // 签名验证
+  setSignature: {
+    method: 'post',
+    url: `${api}miner/MinerAuthentication`
+  },
 }

@@ -7,8 +7,10 @@ import Statistics from './components/Statistics'
 import AccountChange from './components/AccountChange'
 import PowerChange from './components/PowerChange'
 import Xtable from './components/Xtable'
+import Modal from './components/Modal'
+import { Button } from 'antd';
 
-const {title, wrapper} = styles
+const {title, wrapper, btn} = styles
 
 export default () => {
   const id = window.location.href.split('/').reverse()[0]
@@ -16,10 +18,15 @@ export default () => {
 
   const onBtnsChange = ({target: {value}}) => setDuration(value)
 
+  // const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const setSignature = () => setVisible(true)
+
   return (
     <>
       <div className={title}>
         账户：{id}
+        <Button type="link" size="small" className={btn} onClick={setSignature}>修改签名</Button>
       </div>
 
       <Xpanel 
@@ -57,6 +64,8 @@ export default () => {
       </div>
 
       <Xtable id={id}/>
+
+      <Modal id={id} visible={visible} toggleVisible={setVisible}/>
     </>
   );
 };

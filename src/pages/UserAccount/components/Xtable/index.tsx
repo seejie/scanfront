@@ -21,7 +21,8 @@ export default ({id}) => {
     if (type === 'deadLines') return
     const params = {
       size: 10,
-      miner: id,
+      // miner: id,
+      miner: 'f02399',
       page,
       method
     }
@@ -46,17 +47,17 @@ export default ({id}) => {
   const titles = () => tableTile[type].map((el, idx) => <div className={col} key={idx}>{el}</div>)
 
   const history = useHistory()
-  const jump2block = id => history.push(`/block/${id}`)
+  const jump2Height = id => history.push(`/height/${id}`)
 
   const items = () => {
     return list.map((el, idx) => {
-      const handleClick = () => el.block_cid && jump2block(el.block_cid)
+      const handleClick = () => el.height && jump2Height(el.height)
 
       if (type === 'message') {
         return (
           <div className={row} key={idx}>
-            <div className={classNames([col, link])}>{abbr(el.cid, 4)}</div>
-            <div className={col}>{el.height}</div>
+            <div className={col}>{abbr(el.cid, 4)}</div>
+            <div className={classNames([col, link])} onClick={handleClick}>{el.height}</div>
             <div className={col}>{timeStr(el.timestamp)}</div>
             <div className={col}>{abbr(el.from, 4)}</div>
             <div className={col}>{el.to}</div>
@@ -68,8 +69,8 @@ export default ({id}) => {
       } else if (type === 'block') {
         return (
           <div className={row} key={idx}>
-            <div className={col} onClick={handleClick}>{el.height}</div>
-            <div className={classNames([col, link])}>{abbr(el.block_cid, 4)}</div>
+            <div className={classNames([col, link])} onClick={handleClick}>{el.height}</div>
+            <div className={col}>{abbr(el.block_cid, 4)}</div>
             <div className={col}>{el.reward}</div>
             <div className={col}>{timeStr(el.timestamp)}</div>
             <div className={col}>{el.message_num}</div>
@@ -100,6 +101,8 @@ export default ({id}) => {
             <div className={col}>8</div>
           </div>
         )
+      } else {
+        return
       }
     })
   }

@@ -13,8 +13,8 @@ http.interceptors.response.use(
     const {data: {PageName}} = res
     const page = {
       EpochPage: 'height',
-      AccountPage: '',
-      MinerAccountPage: '',
+      AccountPage: 'user',
+      MinerAccountPage: 'miner',
       BlockPage: 'block',
       MessagePage: 'message',
     }
@@ -22,7 +22,7 @@ http.interceptors.response.use(
     const path = page[PageName]
     if (path) {
       const id = res.config.params.search
-      location.href = `//${path}/${id}`
+      location.href = `//${location.host}/#/${path}/${id}`
       throw 'server error'
     } else if (PageName === 'ErrorPage') {
       location.href = `//${location.host}/#/404`
@@ -30,7 +30,6 @@ http.interceptors.response.use(
     } else {
       return res
     }
-    // AccountPage = "AccountPage" //普通账户页面
   },
   err => {
     console.error(err)

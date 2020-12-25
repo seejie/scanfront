@@ -1,0 +1,21 @@
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  .row{
+    margin: 5px 0;
+    &:nth-child(odd) {
+      padding-right: 40px;
+    }
+    &.full{
+      width: 100%;
+    }
+    width: 50%;
+    display: flex;
+    .label{
+      width: 80px;
+    }
+    .value{
+      color: #003BE8;
+    }
+  }
+}

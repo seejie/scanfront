@@ -54,4 +54,6 @@ export default {
   createBlockApi: `${api}MiningRank/CreateBlockApi`,
   // 区块列表
   blocks: `${api}block/BlockList`,
+  // 普通用户-账户概览
+  user: `${api}GetAddrInfo`,
 }

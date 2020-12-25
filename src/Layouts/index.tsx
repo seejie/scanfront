@@ -19,8 +19,8 @@ export default ({ children }) => {
         <div className={menus}>
           <span className={menu} onClick={link2.bind(this, 'home')}>首页</span>
           <span className={menu} onClick={link2.bind(this, 'home')}>区块链</span>
-          <span className={menu} onClick={link2.bind(this, 'home')}>排行榜</span>
-          <span className={menu} onClick={link2.bind(this, 'home')}>统计</span>
+          <span className={menu} onClick={link2.bind(this, 'rank')}>排行榜</span>
+          <span className={menu} onClick={link2.bind(this, 'statistics')}>统计</span>
           <span className={classNames([menu, last])} >
             <GlobalOutlined />
             当前网络：Mainnet
@@ -40,8 +40,8 @@ export default ({ children }) => {
           <div className={row}>
             <span className={menu} onClick={link2.bind(this, 'home')}>首页</span>
             <span className={menu} onClick={link2.bind(this, 'home')}>区块链</span>
-            <span className={menu} onClick={link2.bind(this, 'home')}>排行榜</span>
-            <span className={menu} onClick={link2.bind(this, 'home')}>统计</span>
+            <span className={menu} onClick={link2.bind(this, 'rank')}>排行榜</span>
+            <span className={menu} onClick={link2.bind(this, 'statistics')}>统计</span>
           </div>
           <div className={row}>
             Bheroscan是Filecoin区块浏览器及数据服务平台，提供基于Filecoin的各类挖矿排行，区块链数据查询，可视化图表等一站式数据服务。

@@ -20,7 +20,7 @@ export default props => {
         }
         {
           btns &&
-          <Radio.Group defaultValue="1d" onChange={onBtnsChange}>
+          <Radio.Group defaultValue="1d" onChange={onBtnsChange} buttonStyle="solid">
             <Radio.Button value="1d">24H</Radio.Button>
             <Radio.Button value="7d">7天</Radio.Button>
             <Radio.Button value="30d">30天</Radio.Button>

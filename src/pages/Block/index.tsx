@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from './index.module.less';
-import { Table } from 'antd';
 import classNames from 'classnames'
 import api from '../../api'
 import {timeStr} from '../../utils/index'

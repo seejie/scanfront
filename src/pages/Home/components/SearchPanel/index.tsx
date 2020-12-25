@@ -11,15 +11,8 @@ export default ({ price = 0, profit = 0, total = 0 }) => {
   const [keyword, setKeyword] = useState('')
   const $input = useRef(null)
 
-  const onchange = () => {
-    const obj = $input.current || { state: { value: ''} }
-    // todo 会晚一次，是上一次的结果
-    console.log(obj?.state?.value, 222)
-    setKeyword(obj?.state?.value || '')
-  }
-
+  const onchange = e => setKeyword(e.currentTarget.value || '')
   const onSearch = () => {
-    console.log(keyword, 111)
     if (!keyword.trim()) return
     api.queryTarget({ search: keyword }).then(res => {
       console.log(res)

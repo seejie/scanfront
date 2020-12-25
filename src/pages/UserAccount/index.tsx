@@ -18,8 +18,7 @@ export default () => {
 
   const onBtnsChange = ({target: {value}}) => setDuration(value)
 
-  // const [visible, setVisible] = useState(false)
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
   const setSignature = () => setVisible(true)
 
   return (

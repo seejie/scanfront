@@ -1,14 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './index.module.less';
 import { Radio, Table } from 'antd';
-import { useRequest } from "ice";
+import api from "@/api";
 const {title, panel, header, left, right, list} = styles
 const imgBase = '../../../assets/' 
 
 export default () => {
-  // const [type, setType] = useState<string>('')
-  // const onTypeChanged = (val) => setType(val)
+  const [type, setType] = useState('rankankPowerApi')
+  const onTypeChanged = val => setType(val)
+  const [time, setTime] = useState('1d')
+  const onTimeChanged = val => setTime(val)
+
+  const [size, setSize] = useState(10)
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
+  const [arr, setArr] = useState([])
   
+  useEffect(() => {
+    api[type]({
+      size,
+      page,
+      duration: time
+    }).then(res => {
+      console.log(res)
+      const {Size, Page, Total, Data} = res
+      setArr(Data)
+      setTotal(Total)
+      setPage(Page)
+      setSize(Size)
+    })
+  }, [type, time])
   
   const columns = [
     {
@@ -24,26 +45,6 @@ export default () => {
       dataIndex: 'address',
     },
   ];
-  const tabledata = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-    },
-  ];
 
   return (
     <>
@@ -54,19 +55,26 @@ export default () => {
       <div className={panel}>
         <div className={header}>
           <div className={left}>
-            <Radio.Group defaultValue="a" size="large">
-              <Radio.Button value="a">矿工</Radio.Button>
-              <Radio.Button value="b">有效算力</Radio.Button>
-              <Radio.Button value="c">出块数</Radio.Button>
-              <Radio.Button value="d">算力增速</Radio.Button>
+            <Radio.Group 
+              defaultValue={type} 
+              size="large"
+              buttonStyle="solid"
+              onChange={onTypeChanged}>
+              <Radio.Button value="rankankPowerApi">矿工</Radio.Button>
+              <Radio.Button value="minerPower">有效算力</Radio.Button>
+              <Radio.Button value="miner">出块数</Radio.Button>
+              <Radio.Button value="createBlockApi">算力增速</Radio.Button>
             </Radio.Group>
           </div>
           <div className={right}>
-            <Radio.Group defaultValue="a">
-              <Radio.Button value="a">24H</Radio.Button>
-              <Radio.Button value="b">7天</Radio.Button>
-              <Radio.Button value="c">30天</Radio.Button>
-              <Radio.Button value="d">1年</Radio.Button>
+            <Radio.Group 
+              defaultValue={time}
+              buttonStyle="solid"
+              onChange={onTimeChanged}>
+              <Radio.Button value="1d">24H</Radio.Button>
+              <Radio.Button value="7d">7天</Radio.Button>
+              <Radio.Button value="30d">30天</Radio.Button>
+              <Radio.Button value="1y">1年</Radio.Button>
             </Radio.Group>
           </div>
         </div>
@@ -74,7 +82,7 @@ export default () => {
         <div className={list}>
           <Table 
             columns={columns} 
-            dataSource={tabledata} 
+            dataSource={arr} 
             size="middle" 
             pagination={{ position: ['bottomCenter'] }}
           />

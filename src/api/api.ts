@@ -44,4 +44,12 @@ export default {
   },
   // 区块高度详情
   heightInfo: `${api}GetEpochInfo`,
+  // 挖矿排行|算力增速
+  rankankPowerApi: `${api}MiningRank/RankankPowerApi`,
+  // 挖矿排行|有效算力
+  minerPower: `${api}MiningRank/MinerPower`,
+  // 挖矿排行|矿工
+  miner: `${api}MiningRank/Miner`,
+  // 挖矿排行|出块数量
+  createBlockApi: `${api}MiningRank/CreateBlockApi`,
 }

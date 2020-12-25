@@ -121,7 +121,7 @@ export default ({id}) => {
   return (
     <div className={wrapper}>
       <div className={header}>
-        <Radio.Group defaultValue="message" onChange={onBtnsChange}>
+        <Radio.Group defaultValue="message" onChange={onBtnsChange} buttonStyle="solid">
           <Radio.Button value="message">消息列表</Radio.Button>
           <Radio.Button value="block">区块列表</Radio.Button>
           <Radio.Button value="transfer">转账列表</Radio.Button>

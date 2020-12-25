@@ -11,9 +11,26 @@ const http = axios.create({
 http.interceptors.response.use(
   res => {
     const {data: {PageName}} = res
-    if (PageName !== 'ErrorPage') return res
-    location.href = `//${location.host}/#/404`
-    throw 'server error'
+    const page = {
+      EpochPage: 'height',
+      AccountPage: '',
+      MinerAccountPage: '',
+      BlockPage: 'block',
+      MessagePage: 'message',
+    }
+
+    const path = page[PageName]
+    if (path) {
+      const id = res.config.params.search
+      location.href = `//${path}/${id}`
+      throw 'server error'
+    } else if (PageName === 'ErrorPage') {
+      location.href = `//${location.host}/#/404`
+      throw 'server error'
+    } else {
+      return res
+    }
+    // AccountPage = "AccountPage" //普通账户页面
   },
   err => {
     console.error(err)

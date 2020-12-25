@@ -7,6 +7,7 @@ import Statistics from "@/pages/Statistics";
 import BlockList from "@/pages/BlockList";
 import Block from "@/pages/Block";
 import Height from "@/pages/Height";
+import Message from "@/pages/Message";
 
 const routerConfig = [{
   path: "/",
@@ -44,6 +45,10 @@ const routerConfig = [{
       path: "/height/:id", 
       exact: true, 
       component: Height,
+    }, { 
+      path: "/message/:id", 
+      exact: true, 
+      component: Message,
     }, {
       component: NotFound,
     },

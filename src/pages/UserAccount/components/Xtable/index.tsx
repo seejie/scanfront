@@ -12,7 +12,6 @@ const { Option } = Select
 export default ({id}) => {
   const [list, setList] = useState([])
   const [methods, setMethods] = useState(null)
-  // todo 翻页
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [type, setType] = useState('message')
@@ -21,8 +20,9 @@ export default ({id}) => {
     if (type === 'deadLines') return
     const params = {
       size: 10,
-      // miner: id,
-      miner: 'f02399',
+      miner: id,
+      // todo
+      // miner: 'f02399',
       page,
       method
     }

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styles from "./index.module.less";
 import { Radio } from 'antd';
+import moreIcon from '../../../assets/more.png'
 
-const { wrapper, label, content, iconTitle, iconMore, moreTxt } = styles
+const { wrapper, label, content, iconTitle, iconMore, moreTxt, txt } = styles
 export default props => {
   const {icon, title, more = '', btns, children, height, onBtnsChange} = props
   
@@ -10,12 +11,12 @@ export default props => {
     <div className={wrapper}>
       <div className={label}>
         {icon && <img src={icon} alt="" className={iconTitle}/>}
-        <span>{title}</span>
+        <span className={txt}>{title}</span>
         {
           more &&
           <div className={moreTxt} onClick={more}>
             更多
-            <img src="../assets/more.png" alt="" className={iconMore}/>
+            <img src={moreIcon} alt="" className={iconMore}/>
           </div>
         }
         {

@@ -3,9 +3,9 @@ import styles from './index.module.less';
 import classNames from 'classnames'
 import api from '../../api'
 import {timeStr} from '../../utils/index'
+import listIcon from  '../../../assets/list-icon.png' 
 
 const {title, panel, subTitle, info, row, label, value, heigtLight} = styles
-const imgBase = '../../../assets/' 
 
 export default () => {
   const id = window.location.href.split('/').reverse()[0]
@@ -68,7 +68,7 @@ export default () => {
   return (
     <>
       <div className={title}>
-        <img src={`${imgBase}list-icon.png`} alt=""/>
+        <img src={listIcon} alt=""/>
         区块列表
       </div>
 
@@ -132,7 +132,7 @@ export default () => {
         <div className={subTitle}>
           消息列表
         </div>
-
+{/* todo */}
         {/* <Table 
           columns={columns} 
           dataSource={list} 

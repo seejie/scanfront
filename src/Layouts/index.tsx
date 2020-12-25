@@ -6,6 +6,7 @@ import bottomLogo from "../../assets/bottom-logo.png";
 import styles from './index.module.less'
 import {useHistory} from 'react-router-dom'
 import classNames from 'classnames'
+import logoImg from '../../assets/logo.png'
 
 const {header, main, footer, menus, menu, logo, last, wrapper, row} = styles
 export default ({ children }) => {
@@ -15,7 +16,7 @@ export default ({ children }) => {
   return (
     <ConfigProvider locale={zhCN}>
       <div className={header}>
-        <img className={logo} src="../assets/logo.png" alt="logo" onClick={link2.bind(this, 'home')}/>
+        <img className={logo} src={logoImg} alt="logo" onClick={link2.bind(this, 'home')}/>
         <div className={menus}>
           <span className={menu} onClick={link2.bind(this, 'home')}>首页</span>
           <span className={menu} onClick={link2.bind(this, 'home')}>区块链</span>

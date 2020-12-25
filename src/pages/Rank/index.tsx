@@ -2,54 +2,45 @@ import React, { useEffect, useState } from "react";
 import styles from './index.module.less';
 import { Radio, Table } from 'antd';
 import api from "@/api";
+import wakuang from '../../../assets/wakuang.png'
+import {titles} from './tableTitle'
+
 const {title, panel, header, left, right, list} = styles
-const imgBase = '../../../assets/' 
-
 export default () => {
-  const [type, setType] = useState('rankankPowerApi')
-  const onTypeChanged = val => setType(val)
+  const [type, setType] = useState('miner')
+  const onTypeChanged = e => setType(e.target.value)
   const [time, setTime] = useState('1d')
-  const onTimeChanged = val => setTime(val)
+  const onTimeChanged = e => setTime(e.target.value)
 
-  const [size, setSize] = useState(10)
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
   const [arr, setArr] = useState([])
+  const [loading, setLoading] = useState(false)
   
   useEffect(() => {
+    setLoading(true)
+    setArr([])
     api[type]({
-      size,
+      size: 10,
       page,
       duration: time
     }).then(res => {
-      console.log(res)
-      const {Size, Page, Total, Data} = res
+      const {Page, Total, Data} = res
       setArr(Data)
       setTotal(Total)
       setPage(Page)
-      setSize(Size)
+      setLoading(false)
+    }).catch(() => {
+      setLoading(false)
     })
-  }, [type, time])
-  
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-    },
-  ];
+  }, [type, time, page])
+
+  const onPageChanged = num => setPage(num)
 
   return (
     <>
       <div className={title}>
-        <img src={`${imgBase}wakuang.png`} alt=""/>
+        <img src={wakuang} alt=""/>
         挖矿排行榜
       </div>
       <div className={panel}>
@@ -60,10 +51,10 @@ export default () => {
               size="large"
               buttonStyle="solid"
               onChange={onTypeChanged}>
-              <Radio.Button value="rankankPowerApi">矿工</Radio.Button>
+              <Radio.Button value="miner">矿工</Radio.Button>
               <Radio.Button value="minerPower">有效算力</Radio.Button>
-              <Radio.Button value="miner">出块数</Radio.Button>
-              <Radio.Button value="createBlockApi">算力增速</Radio.Button>
+              <Radio.Button value="createBlockApi">出块数</Radio.Button>
+              <Radio.Button value="rankankPowerApi">算力增速</Radio.Button>
             </Radio.Group>
           </div>
           <div className={right}>
@@ -81,10 +72,17 @@ export default () => {
 
         <div className={list}>
           <Table 
-            columns={columns} 
+            columns={titles[type]} 
             dataSource={arr} 
-            size="middle" 
-            pagination={{ position: ['bottomCenter'] }}
+            size="middle"
+            loading={loading}
+            pagination={{ 
+              position: ['bottomCenter'],
+              total: total,
+              showQuickJumper: true,
+              showSizeChanger: false,
+              onChange:onPageChanged
+           }}
           />
         </div>
       </div>

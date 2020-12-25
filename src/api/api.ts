@@ -52,4 +52,6 @@ export default {
   miner: `${api}MiningRank/Miner`,
   // 挖矿排行|出块数量
   createBlockApi: `${api}MiningRank/CreateBlockApi`,
+  // 区块列表
+  blocks: `${api}block/BlockList`,
 }

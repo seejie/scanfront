@@ -82,7 +82,7 @@ export default ({id}) => {
             <span style={{color: '#20A126'}}>{overview.sector_live}有效 </span>
             <span style={{color: '#BD3B26'}}>{overview.sector_faulty}错误 </span>
             <span style={{color: '#D9A900'}}>{overview.sector_active}恢复中 </span>
-            {+overview.sector_live + +overview.sector_faulty + +overview.sector_active}全部
+            {+overview.sector_live + +overview.sector_faulty}全部
           </span>
         </div>
       </div>

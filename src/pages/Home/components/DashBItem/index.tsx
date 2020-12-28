@@ -4,7 +4,7 @@ import { TinyArea } from "@ant-design/charts";
 import api from '@/api'
 
 const { wrapper, title, value, line } = styles
-export default ({arr, bgImg,}) => {
+export default ({arr, bgImg, chart = false}) => {
 
   // 14天消息数
   const [recent, setRecent] = useState([])
@@ -31,9 +31,9 @@ export default ({arr, bgImg,}) => {
       <div className={title}>{arr[0]}</div>
       <div className={value}>{arr[1]}</div>
       <div className={line}></div>
-      { arr[2] && <div className={title}>{arr[2]}</div> }
-      { arr[3] && <div className={value}>{arr[3]}</div> }  
-      { !arr[3] && <TinyArea {...config} />}
+      <div className={title}>{arr[2]}</div> 
+      <div className={value}>{arr[3]}</div>  
+      { chart && <TinyArea {...config} />}
     </div>
   )
 }

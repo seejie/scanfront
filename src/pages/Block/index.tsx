@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from './index.module.less';
 import classNames from 'classnames'
 import api from '../../api'
-import {timeStr} from '../../utils/index'
+import {abbr, timeStr} from '../../utils'
 import listIcon from  '../../../assets/list-icon.png' 
+import { Table } from 'antd';
 
 const {title, panel, subTitle, info, row, label, value, heigtLight} = styles
 
@@ -26,20 +27,27 @@ export default () => {
   }
 
   const [list, setList] = useState([])
-  const [size, setSize] = useState(10)
   const [page, setPage] = useState(1)
   const [method, setMethod] = useState([])
   const [total, setTotal] = useState(0)
   useEffect(() => {
     api.blockMessageList({
       block_cid: id,
-      size,
+      size: 10,
       page,
       method
     }).then(res => {
       const {List, Total, Methods} = res
       console.log(res)
-      setList(List)
+      const arr = List.map(el => {
+        const {cid, from, ...rest} = el
+        return {
+          cid: abbr(cid, 4),
+          from: abbr(from, 4),
+          ...rest
+        }
+      })
+      setList(arr)
       setTotal(Total)
       setMethod(Methods)
     })
@@ -47,7 +55,7 @@ export default () => {
 
   const columns = [{
     title: '消息ID',
-    dataIndex: 'message',
+    dataIndex: 'cid',
   }, {
     title: '发送方',
     dataIndex: 'from',
@@ -62,8 +70,11 @@ export default () => {
     dataIndex: 'value',
   }, {
     title: '状态',
-    dataIndex: 'status',
+    // 后端单词拼错未改
+    dataIndex: 'statue',
   }];
+
+  const onPageChanged = num => setPage(num)
 
   return (
     <>
@@ -132,13 +143,19 @@ export default () => {
         <div className={subTitle}>
           消息列表
         </div>
-{/* todo */}
-        {/* <Table 
+
+        <Table 
           columns={columns} 
           dataSource={list} 
           size="middle" 
-          pagination={{ position: ['bottomCenter'] }}
-        /> */}
+          pagination={{ 
+            position: ['bottomCenter'],
+            total: total,
+            showQuickJumper: true,
+            showSizeChanger: false,
+            onChange:onPageChanged
+          }}
+        />
       </div>
     </>
   );

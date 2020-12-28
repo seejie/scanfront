@@ -26,7 +26,19 @@ export default () => {
       duration: time
     }).then(res => {
       const {Page, Total, Data} = res
-      setArr(Data)
+      if (type === 'miner') {
+        console.log(Data)
+        const arr = Data.map(el => {
+          const {miner_tag, miner, ...rest} = el
+          return {
+            ...rest,
+            miner_tag: miner_tag || miner || '--'
+          }
+        })
+        setArr(arr)
+      } else {
+        setArr(Data)
+      }
       setTotal(Total)
       setPage(Page)
       setLoading(false)

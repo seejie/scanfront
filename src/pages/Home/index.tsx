@@ -12,6 +12,7 @@ import zs3 from "../../../assets/zs3.png";
 import zs4 from "../../../assets/zs4.png";
 import api from '@/api'
 import {useHistory} from 'react-router-dom'
+import {formatTimeStamp} from '@/utils'
 
 const { wrapper } = styles
 export default () => {
@@ -25,6 +26,15 @@ export default () => {
   const onMoreBaseFee = () => history.push(`/statistics`)
   const onMoreNewestBlock = () => history.push(`/blockList`)
   
+  const [tempT, setTempT] = useState('')
+  const [tempH, setTempH] = useState('')
+  const onUpdate = (v) => {
+    const now = Math.round(new Date().getTime() / 1000)
+    const tempT = formatTimeStamp((v.block_info[0] || {}).timestap || 0, now)
+    setTempT(tempT)
+    setTempH(v.height)
+  }
+  
   return (
     <>
       <SearchPanel 
@@ -33,12 +43,12 @@ export default () => {
         total={net.Newtoken}
       />
 
-      <DashBoard info={net}/>
+      <DashBoard info={net} tempT={tempT} tempH={tempH} />
 
       <div className={wrapper}>
         <Xpanel 
           icon={zs} 
-          title="算力走势"
+          title="排行榜"
           more={onMoreHashRate}
           height={400}
         >
@@ -62,7 +72,7 @@ export default () => {
         more={onMoreNewestBlock}
         height={500}
       >
-        <NewestBlock />
+        <NewestBlock onUpdate={onUpdate}/>
       </Xpanel>
 
       <Xpanel 

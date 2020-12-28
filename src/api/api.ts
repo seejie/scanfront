@@ -56,4 +56,6 @@ export default {
   blocks: `${api}block/BlockList`,
   // 普通用户-账户概览
   user: `${api}GetAddrInfo`,
+  // 消息列表
+  message: `${api}MessageList`,
 }

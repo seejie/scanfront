@@ -5,7 +5,7 @@ import {formatTimeStamp, abbr} from '@/utils'
 import {useHistory} from 'react-router-dom'
 
 const { wrapper, row, col, highlight } = styles
-export default () => {
+export default ({onUpdate}) => {
   const [list, setList] = useState([])
   useEffect(() =>{
     const ws = new WebSocket("ws://115.236.22.234:11224/ws");
@@ -17,6 +17,7 @@ export default () => {
         list = []
       }
       setList(list)
+      onUpdate(list[0])
     }
   }, [])
   

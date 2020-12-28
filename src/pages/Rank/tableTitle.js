@@ -4,7 +4,7 @@ export const titles = {
     dataIndex: 'rank',
   }, {
     title: '矿工',
-    dataIndex: 'miner',
+    dataIndex: 'miner_tag',
   }, {
     title: '有效算力/占比',
     dataIndex: 'power_and_proportion',

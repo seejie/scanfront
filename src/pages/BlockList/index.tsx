@@ -80,13 +80,13 @@ export default () => {
           </div>
           {items()}
         </div>
-          <Pagination 
-            className={pagination}
-            defaultCurrent={1} 
-            total={total} 
-            showQuickJumper
-            showSizeChanger={false}
-            onChange={onPageChanged}/>
+        <Pagination 
+          className={pagination}
+          defaultCurrent={1} 
+          total={total} 
+          showQuickJumper
+          showSizeChanger={false}
+          onChange={onPageChanged}/>
       </div>
     </>
   );

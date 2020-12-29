@@ -39,12 +39,13 @@ export default () => {
     }).then(res => {
       const {List, Total, Methods} = res
       console.log(res)
-      const arr = List.map(el => {
+      const arr = List.map((el, key) => {
         const {cid, from, ...rest} = el
         return {
           cid: abbr(cid, 4),
           from: abbr(from, 4),
-          ...rest
+          ...rest,
+          key
         }
       })
       setList(arr)
@@ -153,7 +154,7 @@ export default () => {
             total: total,
             showQuickJumper: true,
             showSizeChanger: false,
-            onChange:onPageChanged
+            onChange: onPageChanged
           }}
         />
       </div>

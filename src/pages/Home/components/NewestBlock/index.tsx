@@ -44,7 +44,8 @@ export default ({onUpdate}) => {
             {height}
           </div>
           <div className={col}>{time}</div>
-          <div className={col}>{ids}</div>
+          {/* <div className={classNames([col, highlight])} dangerouslySetInnerHTML={ids}>{ids}</div> */}
+          <div className={classNames([col, highlight])} >{ids}</div>
           <div className={col}>{miners}</div>
           <div className={col}>{tags}</div>
           <div className={col}>{msg}</div>

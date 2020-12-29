@@ -3,10 +3,12 @@ import styles from './index.module.less';
 import { Radio, Table } from 'antd';
 import api from "@/api";
 import wakuang from '../../../assets/wakuang.png'
-import {titles} from './tableTitle'
+import getTitle from './tableTitle'
+import {useHistory} from 'react-router-dom'
 
 const {title, panel, header, left, right, list} = styles
 export default () => {
+  const pageSize = 25
   const [type, setType] = useState('miner')
   const onTypeChanged = e => setType(e.target.value)
   const [time, setTime] = useState('1d')
@@ -21,24 +23,18 @@ export default () => {
     setLoading(true)
     setArr([])
     api[type]({
-      size: 10,
+      size: pageSize,
       page,
       duration: time
     }).then(res => {
       const {Page, Total, Data} = res
-      if (type === 'miner') {
-        console.log(Data)
-        const arr = Data.map(el => {
-          const {miner_tag, miner, ...rest} = el
-          return {
-            ...rest,
-            miner_tag: miner_tag || miner || '--'
-          }
-        })
-        setArr(arr)
-      } else {
-        setArr(Data)
-      }
+      const arr = Data.map((el, key) => {
+        return {
+          ...el,
+          key
+        }
+      })
+      setArr(arr)
       setTotal(Total)
       setPage(Page)
       setLoading(false)
@@ -48,6 +44,10 @@ export default () => {
   }, [type, time, page])
 
   const onPageChanged = num => setPage(num)
+
+  const history = useHistory()
+  const jump2Miner = miner => history.push(`/miner/${miner}`)
+  const jump2Tag = tag => history.push(`/tag/${tag}`)
 
   return (
     <>
@@ -84,7 +84,7 @@ export default () => {
 
         <div className={list}>
           <Table 
-            columns={titles[type]} 
+            columns={getTitle(jump2Miner, jump2Tag)[type]} 
             dataSource={arr} 
             size="middle"
             loading={loading}
@@ -93,7 +93,8 @@ export default () => {
               total: total,
               showQuickJumper: true,
               showSizeChanger: false,
-              onChange:onPageChanged
+              pageSize,
+              onChange: onPageChanged
            }}
           />
         </div>

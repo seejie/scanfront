@@ -3,7 +3,7 @@ import styles from "./index.module.less";
 import { TinyArea } from "@ant-design/charts";
 import api from '@/api'
 
-const { wrapper, title, value, line } = styles
+const { wrapper, title, value, line, graph } = styles
 export default ({arr, bgImg, chart = false}) => {
 
   // 14天消息数
@@ -33,7 +33,7 @@ export default ({arr, bgImg, chart = false}) => {
       <div className={line}></div>
       <div className={title}>{arr[2]}</div> 
       <div className={value}>{arr[3]}</div>  
-      { chart && <TinyArea {...config} />}
+      { chart && <TinyArea {...config} className={graph}/>}
     </div>
   )
 }

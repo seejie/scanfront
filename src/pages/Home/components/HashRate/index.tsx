@@ -47,7 +47,6 @@ export default () => {
           </div>
           <div className={col}>
             <div className={td}>
-              {el.rank}，
               {el.power}
             </div>
           </div>
@@ -72,9 +71,6 @@ export default () => {
         </div>
         <div className={col}>
           <div className={td}>有效算力/占比</div>
-        </div>
-        <div className={col}>
-          <div className={td}></div>
         </div>
         <div className={col}>
           <div className={td}>24H增量</div>

@@ -96,7 +96,7 @@ export default ({duration}) => {
   return (
     <>
     {/* todo */}
-      {/* <Line {...config} /> */}
+      <Line {...config} />
     </>
   )
 }

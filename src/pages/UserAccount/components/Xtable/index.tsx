@@ -1,38 +1,54 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.less";
-import { Radio, Select, Pagination } from 'antd';
+import { Radio, Select, Table } from 'antd';
 import api from "@/api";
-import classNames from 'classnames'
-import {tableTile} from '@/constant/types'
 import {abbr, timeStr} from '@/utils'
 import {useHistory} from 'react-router-dom'
+import getTitle from './tableTitle'
 
-const { wrapper, header, main, row, col, link, pagination } = styles
+const { wrapper, header } = styles
 const { Option } = Select
 export default ({id}) => {
+  const pageSize = 15
   const [list, setList] = useState([])
   const [methods, setMethods] = useState(null)
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [type, setType] = useState('message')
   const [method, setMethod] = useState('')
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     if (type === 'deadLines') return
     const params = {
-      size: 10,
+      size: pageSize,
       miner: id,
-      // todo
-      // miner: 'f02399',
       page,
       method
     }
 
+    setLoading(true)
+    setList([])
     api[`${type}List`](params).then((res) => {
       console.log(res)
       const {List, Methods = null, Total} = res
-      setList(List)
+      const arr = List.map((el, key) => {
+        const {cid, timestamp, from, block_cid, ...rest} = el
+        return {
+          cid: abbr(cid, 4),
+          timestamp: timeStr(timestamp),
+          from: abbr(from, 4),
+          block_cid: abbr(block_cid, 4),
+          ...rest,
+          key
+        }
+      })
+      setList(arr)
       setMethods(Methods)
       setTotal(Total)
+      setLoading(false)
+    }).catch(() =>{
+      setLoading(false)
     })
   }, [type, method, page])
 
@@ -44,68 +60,10 @@ export default ({id}) => {
     setList([])
   }
   const handleChange = val => setMethod(val)
-  const titles = () => tableTile[type].map((el, idx) => <div className={col} key={idx}>{el}</div>)
 
   const history = useHistory()
   const jump2Height = id => history.push(`/height/${id}`)
-
-  const items = () => {
-    return list.map((el, idx) => {
-      const handleClick = () => el.height && jump2Height(el.height)
-
-      if (type === 'message') {
-        return (
-          <div className={row} key={idx}>
-            <div className={col}>{abbr(el.cid, 4)}</div>
-            <div className={classNames([col, link])} onClick={handleClick}>{el.height}</div>
-            <div className={col}>{timeStr(el.timestamp)}</div>
-            <div className={col}>{abbr(el.from, 4)}</div>
-            <div className={col}>{el.to}</div>
-            <div className={col}>{el.method}</div>
-            <div className={col}>{el.value}</div>
-            <div className={col}>{el.total_cost}</div>
-          </div>
-        )
-      } else if (type === 'block') {
-        return (
-          <div className={row} key={idx}>
-            <div className={classNames([col, link])} onClick={handleClick}>{el.height}</div>
-            <div className={col}>{abbr(el.block_cid, 4)}</div>
-            <div className={col}>{el.reward}</div>
-            <div className={col}>{timeStr(el.timestamp)}</div>
-            <div className={col}>{el.message_num}</div>
-            <div className={col}></div>
-          </div>
-        )
-      } else if (type === 'transfer') {
-        return (
-          <div className={row} key={idx}>
-            <div className={col}>1</div>
-            <div className={classNames([col, link])}>2</div>
-            <div className={col}>3</div>
-            <div className={col}>4</div>
-            <div className={col}>5</div>
-            <div className={col}>6</div>
-          </div>
-        )
-      } else if (type === 'deadLines') {
-        return (
-          <div className={row} key={idx}>
-            <div className={col}>1</div>
-            <div className={classNames([col, link])}>2</div>
-            <div className={col}>3</div>
-            <div className={col}>4</div>
-            <div className={col}>5</div>
-            <div className={col}>6</div>
-            <div className={col}>7</div>
-            <div className={col}>8</div>
-          </div>
-        )
-      } else {
-        return
-      }
-    })
-  }
+  const jump2Miner = miner => history.push(`/miner/${miner}`)
 
   const options = () => {
     if (!methods) return null
@@ -135,20 +93,21 @@ export default ({id}) => {
           </Select>
         }
       </div>
-      <div className={main}>
-        <div className={row}>
-          {titles()}
-        </div>
-        {items()}
-      </div>
 
-      <Pagination 
-        className={pagination}
-        defaultCurrent={1} 
-        total={total} 
-        showQuickJumper
-        showSizeChanger={false}
-        onChange={onPageChanged}/>
+      <Table 
+        columns={getTitle(jump2Miner, jump2Height)[type]} 
+        dataSource={list} 
+        size="middle"
+        loading={loading}
+        pagination={{ 
+          position: ['bottomCenter'],
+          total: total,
+          showQuickJumper: true,
+          showSizeChanger: false,
+          pageSize,
+          onChange: onPageChanged
+        }}
+      />
     </div>
   )
 }

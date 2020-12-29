@@ -19,7 +19,7 @@ export default ({ children }) => {
         <img className={logo} src={logoImg} alt="logo" onClick={link2.bind(this, 'home')}/>
         <div className={menus}>
           <span className={menu} onClick={link2.bind(this, 'home')}>首页</span>
-          <span className={menu} onClick={link2.bind(this, 'home')}>区块链</span>
+          <span className={menu} onClick={link2.bind(this, 'blockList')}>区块链</span>
           <span className={menu} onClick={link2.bind(this, 'rank')}>排行榜</span>
           <span className={menu} onClick={link2.bind(this, 'statistics')}>统计</span>
           <span className={classNames([menu, last])} >
@@ -40,7 +40,7 @@ export default ({ children }) => {
           </div>
           <div className={row}>
             <span className={menu} onClick={link2.bind(this, 'home')}>首页</span>
-            <span className={menu} onClick={link2.bind(this, 'home')}>区块链</span>
+            <span className={menu} onClick={link2.bind(this, 'blockList')}>区块链</span>
             <span className={menu} onClick={link2.bind(this, 'rank')}>排行榜</span>
             <span className={menu} onClick={link2.bind(this, 'statistics')}>统计</span>
           </div>

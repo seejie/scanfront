@@ -59,7 +59,12 @@ export default ({id}) => {
     setPage(1)
     setList([])
   }
-  const handleChange = val => setMethod(val)
+  const handleChange = val => {
+    setMethod(val)
+    setTotal(0)
+    setList([])
+    setPage(1)
+  }
 
   const history = useHistory()
   const jump2Height = id => history.push(`/height/${id}`)

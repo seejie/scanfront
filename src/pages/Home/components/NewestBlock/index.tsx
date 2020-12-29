@@ -78,7 +78,6 @@ export default ({onUpdate}) => {
     render: arr => arr.map((el, idx) => <div key={idx}>{el}</div>)
   }]
 
-
   return (
     <div className={wrapper}>
       <Table 

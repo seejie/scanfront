@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import styles from './index.module.less';
 import listIcon from '../../../assets/list-icon.png'
 import api from "@/api";
-import classNames from 'classnames'
 import {formatTimeStamp, abbr} from '@/utils'
 import {useHistory} from 'react-router-dom'
-import { Pagination } from 'antd';
+import { Table } from 'antd';
 
-
-const {title, panel, wrapper, row, col, highlight, pagination} = styles
+const {title, panel} = styles
 
 export default () => {
-
+  const pageSize = 25
   const history = useHistory()
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
@@ -19,48 +17,64 @@ export default () => {
 
   useEffect(() => {
     api.blocks({
-      size: 10,
+      size: pageSize,
       page
     }).then(res => {
       console.log(res)
       const {Total, List} = res
       setTotal(Total)
-      setList(List)
+      const now = Math.round(new Date().getTime() / 1000)
+      const arr = List.map((item, key) => {
+        const {time, blocks, ...rest} = item
+        let ids = [], miners = [], msg = [], rewards = []
+
+        blocks.forEach(el => {
+          el.block_id && ids.push(el.block_id)
+          el.miner && miners.push(el.miner)
+          el.msg_num && msg.push(el.msg_num)
+          el.reward && rewards.push(el.reward)
+        });
+
+        return {
+          time: formatTimeStamp((blocks[0] || {}).timestap || 0, now),
+          ids,
+          miners,
+          msg,
+          rewards,
+          ...rest,
+          key
+        }
+      })
+      setList(arr)
     })
   }, [page])
 
   const onPageChanged = num => setPage(num)
-
-  const items = () => {
-    const now = Math.round(new Date().getTime() / 1000)
-    // if()
-    return list.map((el, idx) => {
-      const {height, blocks} = el
-      const handleClick = () => history.push(`/height/${height}`)
-      const time = formatTimeStamp((blocks[0] || {}).timestap || 0, now)
-
-      let ids = '', miners = '', tags = '', msg = '', rewards = ''
-      blocks.forEach(el => {
-        ids += abbr(el.block_id) +'\r\n'
-        miners += el.miner + '\r\n'
-        msg += el.msg_num + '\r\n'
-        rewards += el.reward + '\r\n'
-      });
-      
-      return (
-        <div className={row} key={idx}>
-          <div className={classNames([col, highlight])} onClick={handleClick}>
-            {height}
-          </div>
-          <div className={col}>{time}</div>
-          <div className={col}>{ids}</div>
-          <div className={col}>{miners}</div>
-          <div className={col}>{msg}</div>
-          <div className={col}>{rewards}</div>
-        </div>
-      )
-    })
-  }
+  const jump2 = (path, id) => history.push(`/${path}/${id}`)
+  const columns = [{
+    title: '高度',
+    dataIndex: 'height',
+    render: text => <a onClick={jump2.bind(this, 'height', text)}>{text}</a>,
+  }, {
+    title: '时间',
+    dataIndex: 'time',
+  }, {
+    title: 'ID',
+    dataIndex: 'ids',
+    render: arr => arr.map((el, idx) => <div key={idx}><a onClick={jump2.bind(this, 'block', el)}>{abbr(el)}</a></div>)
+  }, {
+    title: '矿工',
+    dataIndex: 'miners',
+    render: arr => arr.map((el, idx) => <div key={idx}><a onClick={jump2.bind(this, 'miner', el)}>{el}</a></div>)
+  }, {
+    title: '消息',
+    dataIndex: 'msg',
+    render: arr => arr.map((el, idx) => <div key={idx}>{el}</div>)
+  }, {
+    title: '奖励',
+    dataIndex: 'rewards',
+    render: arr => arr.map((el, idx) => <div key={idx}>{el}</div>)
+  }]
 
   return (
     <>
@@ -69,24 +83,19 @@ export default () => {
         区块列表
       </div>
       <div className={panel}>
-        <div className={wrapper}>
-          <div className={row}>
-            <div className={col}>高度</div>
-            <div className={col}>时间</div>
-            <div className={col}>ID</div>
-            <div className={col}>矿工</div>
-            <div className={col}>消息</div>
-            <div className={col}>奖励</div>
-          </div>
-          {items()}
-        </div>
-        <Pagination 
-          className={pagination}
-          defaultCurrent={1} 
-          total={total} 
-          showQuickJumper
-          showSizeChanger={false}
-          onChange={onPageChanged}/>
+        <Table 
+          columns={columns} 
+          dataSource={list} 
+          size="middle"
+          pagination={{
+            position: ['bottomCenter'],
+            total: total,
+            showQuickJumper: true,
+            showSizeChanger: false,
+            pageSize,
+            onChange: onPageChanged
+          }}
+        />
       </div>
     </>
   );

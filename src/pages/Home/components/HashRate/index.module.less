@@ -1,57 +1,24 @@
 .wrapper{
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -30px;
-  .row{
+  margin: -20px -30px 0;
+  .table {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    &:nth-child(1) {
-      text-align: left;
-    }
-    .col{
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      &:nth-child(1) {
-        text-align: right;
-        min-width: 34px;
-      }
-      &:nth-child(2) {
-        text-align: left;
-        min-width: 100px;
-      }
-      &:nth-child(3) {
-        text-align: left;
-        flex: 1;
-      }
-      &:nth-child(4) {
-        text-align: left;
-        min-width: 110px;
-      }
-      &:nth-child(5) {
-        text-align: left;
-        min-width: 80px;
-      }
-      &:nth-child(6) {
-        text-align: left;
-        min-width: 80px;
-      }
-      &.progress{
-        min-width: 100px;
-      }
-      .td{
-        padding: 3px;
-        .icon{
-          width: 20px;
-          height: 20px;
-          margin-right: 6px;
-        }
-        .link{
-          cursor: pointer;
-          color: #003BE8;;
-        }
-      }
-    }
   }
+  .icon{
+    margin-right: 5px;
+  }
+  /deep/ th {
+    background: #fff !important;
+  }
+}
+
+.progress{
+  width: 78px;
+  margin-right: 10px;
+}
+
+:global(.ant-table.ant-table-middle .ant-table-thead > tr > th),
+:global(.ant-table.ant-table-middle .ant-table-tbody > tr > td) {
+  padding: 4px 2px;
 }

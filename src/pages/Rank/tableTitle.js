@@ -62,9 +62,6 @@ export default (jump2Miner, jump2Tag) => {
       dataIndex: 'reward_and_proportion',
     }, 有效算力],
     rankankPowerApi: [排名, 矿工(jump2Miner), 标签, {
-      title: '算力增速',
-      dataIndex: 'daily_power_growth',
-    }, {
       title: '矿机当量',
       dataIndex: '',
     }, {

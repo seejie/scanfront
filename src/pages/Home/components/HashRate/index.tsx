@@ -2,84 +2,91 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.less";
 import api from '@/api'
 import fil from "../../../../../assets/fil.png";
-import { Progress } from "antd";
+import { Progress, Table } from "antd";
 import {useHistory} from 'react-router-dom'
-import classNames from 'classnames'
 
-const { wrapper, row, col, td, icon, link, progress } = styles
+const { wrapper, table, icon, progress } = styles
 export default () => {
   // 算力走势
-  const [hashrateTrend, setHashrateTrend] = useState([])
-  useEffect(() => { api.minerlistbypower().then(res => setHashrateTrend(res)) }, [])
+  const [list, setList] = useState([])
+  useEffect(() => { 
+    api.minerlistbypower()
+    .then(res => {
+      const arr = res.miner_list.map((el, key) => {
+        return {
+          ...el,
+          key: key + 1
+        }
+      })
+      console.log(arr)
+      setList(arr)
+    })
+  }, [])
 
   const history = useHistory()
   const jump2Miner = (id) => history.push(`/miner/${id}`)
 
-  const items = () => {
-    const list = hashrateTrend.miner_list
-    if (!list) return null
-    return list.map((el, idx) => {
-      const onClickItem = () => jump2Miner(el.address)
+  const progressColor = ['#6F36D5', '#DB30E3', '#EE3E96', '#FF804A', '#FFDD29', '#9DDC6E', '#45A448', '#36D5B6', '#32C6FD', '#0879FD', '#2F53FF', '#4A00FF']
+  const columns = [{
+    title: '',
+    dataIndex: 'key',
+    align: 'right',
+    width: 20,
+  }, {
+    title: '矿工',
+    dataIndex: 'address',
+    width: 60,
+    ellipsis: true,
+    render: text => {
       return (
-        <div className={row} key={idx}>
-          <div className={col}>
-            <div className={td}>
-              {idx + 1}
-            </div>
-          </div>
-          <div className={col}>
-            <div className={td}>
-              <img src={fil} className={icon}/>
-              <span className={link} onClick={onClickItem}>
-                {el.address}
-              </span>
-            </div>
-          </div>
-          <div className={classNames([col, progress])}>
-            <div className={td}>
-              <Progress
-                className={progress}
-                percent={el.proportion}
-                showInfo={false}
-                size="small"
-              />
-            </div>
-          </div>
-          <div className={col}>
-            <div className={td}>
-              {el.power}
-            </div>
-          </div>
-          <div className={col}>
-            <div className={td}>{el.delta}</div>
-          </div>
-          <div className={col}>
-            <div className={td}>{el.wincount}</div>
-          </div>
-        </div>
+        <a onClick={jump2Miner.bind(this, text)}>
+          <img src={fil} className={icon}/>
+          {text}
+        </a>
       )
-    })
-  }
+    },
+  }, {
+    title: '有效算力/占比',
+    dataIndex: 'proportion',
+    width: 150,
+    ellipsis: true,
+    render: (text, el) => {
+      console.log(el)
+      return (
+        <>
+          <Progress
+            percent={text}
+            showInfo={false}
+            size="small"
+            strokeColor={progressColor[el.key - 1]}
+            className={progress}
+            trailColor="#eee"
+          />{el.power}
+        </>
+      )
+    },
+  }, {
+    title: '24H增量',
+    dataIndex: 'delta',
+    width: 50,
+    ellipsis: true,
+  }, {
+    title: '出块份数',
+    dataIndex: 'wincount',
+    align: 'center',
+    width: 50,
+    ellipsis: true,
+  }]
+
   return (
     <div className={wrapper}>
-      <div className={row}>
-        <div className={col}>
-          <div className={td}></div>
-        </div>
-        <div className={col}>
-          <div className={td}>矿工</div>
-        </div>
-        <div className={col}>
-          <div className={td}>有效算力/占比</div>
-        </div>
-        <div className={col}>
-          <div className={td}>24H增量</div>
-        </div>
-        <div className={col}>
-          <div className={td}>出块份数</div>
-        </div>
-      </div>
-      {items()}
+      <Table 
+        columns={columns} 
+        className={table}
+        dataSource={list} 
+        size="middle"
+        pagination={false}
+      />
     </div>
   )
 }

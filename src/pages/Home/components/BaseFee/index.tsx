@@ -25,9 +25,7 @@ export default ({duration}) => {
     smooth: true,
     yAxis: {
       label: {
-        formatter: function formatter(v) {
-          return (v | 0) + ' nonaFil'
-        },
+        formatter: v => (v | 0) + ' nonaFil'
       },
     },
     point: {
@@ -53,7 +51,5 @@ export default ({duration}) => {
     interactions: [{ type: 'marker-active' }],
   }
 
-  return (
-    <Line {...config} />
-  )
+  return <Line {...config} />
 }

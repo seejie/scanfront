@@ -68,7 +68,7 @@ export default (jump2Miner, jump2Tag) => {
     miner: [排名, {
       title: '矿工',
       dataIndex: 'miner',
-      render: (text, el) => <a onClick={jump2Tag.bind(this, text)}>{el.miner_tag || el.miner || '--'}</a>,
+      render: (text, el) => <a onClick={jump2Tag.bind(this, el)}>{el.miner_tag || el.miner || '--'}</a>,
     }, 有效算力占比, 出块奖励24h, 挖矿效率24h, 算力增量24h],
     minerPower: [排名, 矿工(jump2Miner), 标签, 有效算力占比, 出块奖励24h, 挖矿效率24h, 算力增量24h],
     createBlockApi: [排名, 矿工(jump2Miner), 标签, {

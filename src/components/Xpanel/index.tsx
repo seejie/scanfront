@@ -2,16 +2,19 @@ import React from "react";
 import styles from "./index.module.less";
 import { Radio } from 'antd';
 import moreIcon from '../../../assets/more.png'
+import Tooltip from '@/components/Tooltip'
 
 const { wrapper, label, content, iconTitle, iconMore, moreTxt, txt } = styles
 export default props => {
-  const {icon, title, more = '', btns, children, height, onBtnsChange} = props
+  const {icon, title, more = '', btns, children, height, onBtnsChange, tooltip} = props
   
   return (
     <div className={wrapper}>
       <div className={label}>
         {icon && <img src={icon} alt="" className={iconTitle}/>}
-        <span className={txt}>{title}</span>
+        <span className={txt}>
+          {title} {tooltip && <Tooltip txt={tooltip} />}
+        </span>
         {
           more &&
           <div className={moreTxt} onClick={more}>

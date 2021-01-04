@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.less";
 import api from "@/api";
 import { Pie } from '@ant-design/charts';
+import Tooltip from '@/components/Tooltip'
 
 const { top, middle, bottom, cell, strong, row, right, chart, col, large } = styles
 export default ({id}) => {
@@ -70,7 +71,10 @@ export default ({id}) => {
       <div className={bottom}>
         <div className={row}>
           原值算力：{overview.raw_bytes_power}
-          <span className={right}>累计出块份数：{overview.win_count}</span>
+          <span className={right}>
+            累计出块份数<Tooltip txt="Filecoin挖矿模型中，一个高度（tipset）下可能有多个区块（block），每个区块可能获得多份奖励（win count）。累计出块份数=每次出块获得奖励份数的总和" />：
+            {overview.win_count}
+          </span>
         </div>
         <div className={row}>
           累计出块奖励：{overview.mined_block_reward}

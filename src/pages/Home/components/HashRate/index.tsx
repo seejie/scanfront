@@ -4,6 +4,7 @@ import api from '@/api'
 import fil from "../../../../../assets/fil.png";
 import { Progress, Table } from "antd";
 import {useHistory} from 'react-router-dom'
+import Tooltip from '@/components/Tooltip'
 
 const { wrapper, table, icon, progress } = styles
 export default () => {
@@ -66,7 +67,15 @@ export default () => {
       )
     },
   }, {
-    title: '24H增量',
+    // title: '24H增量',
+    title: () => {
+      return (
+        <>
+          24H增量
+          <Tooltip txt="近24h矿工有效算力的增量" />
+        </>
+      )
+    },
     dataIndex: 'delta',
     width: 50,
     ellipsis: true,

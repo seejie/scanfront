@@ -1,3 +1,4 @@
+import Tooltip from "@/components/Tooltip";
 import React from "react";
 
 const 消息ID = {
@@ -26,6 +27,24 @@ const 发送方 = {
 const 接收方 = {
   title: '接收方',
   dataIndex: 'to',
+}
+
+const map = {
+  'Total Sectors': '此分区中的扇区号，包括故障和终止的扇区',
+  'Fault Sectors': '已检测/已声明故障且尚未恢复的扇区区',
+  'Recovery Sectors': '失败的扇区，有望在下一个PoSt中恢复',
+  'Terminated Sectors': '扇区已终止，但尚未从分区中删除',
+  'Prowen Partitions': '自证明期开始以来，带有PoSt提交的分区编号',
+  Open: '证明期的第一个时期（ <= CurrentEpoch ）'
+}
+
+const tooltip = title => {
+  return (
+    <>
+      {title}
+      <Tooltip txt={map[title]} />
+    </>
+  )
 }
 
 export default (jump2Miner, jump2Height) => {
@@ -67,22 +86,22 @@ export default (jump2Miner, jump2Height) => {
       title: 'Partitions',
       dataIndex: '',
     }, {
-      title: 'Total Sectors',
+      title: tooltip('Total Sectors'),
       dataIndex: '',
     }, {
-      title: 'Fault Sectors',
+      title: tooltip('Fault Sectors'),
       dataIndex: '',
     }, {
-      title: 'Recovery Sectors',
+      title: tooltip('Recovery Sectors'),
       dataIndex: '',
     }, {
-      title: 'Terminated Sectors',
+      title: tooltip('Terminated Sectors'),
       dataIndex: '',
     }, {
-      title: 'Prowen Partitions',
+      title: tooltip('Prowen Partitions'),
       dataIndex: '',
     }, {
-      title: 'Open',
+      title: tooltip('Open'),
       dataIndex: '',
     }]
   }

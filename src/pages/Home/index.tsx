@@ -58,6 +58,7 @@ export default () => {
         <Xpanel 
           icon={zs2} 
           title="24HBass Fee走势"
+          tooltip="基础手续费率：由系统收取并销毁的手续费的实时费率"
           more={onMoreBaseFee}
           height={400}
         >

@@ -1,0 +1,21 @@
+.title {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  margin-bottom: .38rem;
+  .btn{
+    color: #fff;
+  }
+}
+
+.wrapper{
+  margin-top: -30px;
+  display: flex;
+  justify-content: space-between;
+  & > div{
+    width: calc(50% - 10px);
+    &+ .panel{
+      margin-top: 0;
+    }
+  }
+}

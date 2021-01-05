@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { DualAxes } from '@ant-design/charts';
 import {timeStr} from '@/utils'
 
-export default ({id}) => {
+export default ({id, type = ''}) => {
   const [data, setData] = useState({})
   useEffect(() =>{
-    api.minerPowerChange({miner: id}).then(res => {
+    api[`miner${type}PowerChange`]({[`miner${type}`]: id}).then(res => {
       const n = 1024*1024*1024*1024
       const list = res.map(el =>{
         const { quality_adj_power, raw_byte_power, timestamp } = el

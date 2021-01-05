@@ -5,10 +5,10 @@ import { Pie } from '@ant-design/charts';
 import Tooltip from '@/components/Tooltip'
 
 const { top, middle, bottom, cell, strong, row, right, chart, col, large } = styles
-export default ({id}) => {
+export default ({id, type = ''}) => {
   const [overview, setOverview] = useState({}) 
   useEffect(() =>{
-    api.overview({miner: id}).then(res =>{
+    api[`overview${type}`]({[`miner${type}`]: id}).then(res =>{
       setOverview(res)
     })
   }, [id])

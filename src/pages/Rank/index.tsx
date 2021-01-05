@@ -49,7 +49,6 @@ export default () => {
 
   const history = useHistory()
   const jump2Miner = miner => history.push(`/miner/${miner}`)
-  // todo:tag跳转聚合，miner跳转miner（对应矿工详情-版本2）
   const jump2Tag = el => {
     const {miner_tag, miner} = el
     if (miner_tag) {

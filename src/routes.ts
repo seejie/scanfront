@@ -10,6 +10,7 @@ import Height from "@/pages/Height";
 import Message from "@/pages/Message";
 import User from "@/pages/NormalUser";
 import MessageList from "@/pages/MessageList";
+import Tag from "@/pages/Tag";
 
 const routerConfig = [{
   path: "/",
@@ -59,6 +60,10 @@ const routerConfig = [{
       path: "/message", 
       exact: true, 
       component: MessageList,
+    }, { 
+      path: "/tag/:id", 
+      exact: true, 
+      component: Tag,
     }, {
       component: NotFound,
     },

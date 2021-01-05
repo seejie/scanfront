@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.module.less";
 
 const { wrapper, cell } = styles
-export default ({id, duration = '1d'}) => {
+export default ({id, duration = '1d', type = ''}) => {
   const [statistics, setStatistics] = useState({})
   useEffect(() => {
-    api.minedStatic({miner: id, duration}).then(res=> {
+    api[`mined${type}Static`]({[`miner${type}`]: id, duration}).then(res=> {
       setStatistics(res)
     })
   }, [duration])

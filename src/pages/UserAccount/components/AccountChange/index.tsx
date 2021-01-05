@@ -3,10 +3,10 @@ import api from "@/api";
 import { Line } from '@ant-design/charts';
 import {timeStr} from '@/utils'
 
-export default ({id}) => {
+export default ({id, type = ''}) => {
   const [data, setData] = useState([])
   useEffect(() =>{
-    api.minerAccountChange({miner: id}).then(arr => {
+    api[`miner${type}AccountChange`]({[`miner${type}`]: id}).then(arr => {
       const list = []
       const n = 1000000000000000000 
       arr.forEach(el => {

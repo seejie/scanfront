@@ -12,7 +12,6 @@ import zs3 from "../../../assets/zs3.png";
 import zs4 from "../../../assets/zs4.png";
 import api from '@/api'
 import {useHistory} from 'react-router-dom'
-import {formatTimeStamp} from '@/utils'
 
 const { wrapper } = styles
 export default () => {
@@ -29,9 +28,7 @@ export default () => {
   const [tempT, setTempT] = useState('')
   const [tempH, setTempH] = useState('')
   const onUpdate = (v) => {
-    const now = Math.round(new Date().getTime() / 1000)
-    const tempT = formatTimeStamp((v.block_info[0] || {}).timestap || 0, now)
-    setTempT(tempT)
+    setTempT((v.block_info[0] || {}).timestap)
     setTempH(v.height)
   }
   

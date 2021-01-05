@@ -10,7 +10,10 @@ const {title, panel, header, left, right, list} = styles
 export default () => {
   const pageSize = 25
   const [type, setType] = useState('miner')
-  const onTypeChanged = e => setType(e.target.value)
+  const onTypeChanged = e => {
+    setType(e.target.value)
+    setArr([])
+  }
   const [time, setTime] = useState('1d')
   const onTimeChanged = e => setTime(e.target.value)
 
@@ -21,7 +24,6 @@ export default () => {
   
   useEffect(() => {
     setLoading(true)
-    setArr([])
     api[type]({
       size: pageSize,
       page,

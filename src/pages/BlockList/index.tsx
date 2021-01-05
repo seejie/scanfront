@@ -36,7 +36,7 @@ export default () => {
         });
 
         return {
-          time: formatTimeStamp((blocks[0] || {}).timestap || 0, now),
+          time: formatTimeStamp((blocks[0] || {}).timestap || now, now),
           ids,
           miners,
           msg,

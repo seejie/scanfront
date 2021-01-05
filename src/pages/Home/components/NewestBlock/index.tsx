@@ -31,7 +31,7 @@ export default ({onUpdate}) => {
         });
 
         return {
-          time: formatTimeStamp((block_info[0] || {}).timestap || 0, now),
+          time: formatTimeStamp((block_info[0] || {}).timestap || now, now),
           ids,
           miners,
           tags,

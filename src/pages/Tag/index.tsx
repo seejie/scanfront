@@ -10,8 +10,7 @@ import Modal from '@/pages/UserAccount/components/Modal'
 
 const {title, wrapper, btn} = styles
 export default () => {
-  const id = window.location.href.split('/').reverse()[0]
-  console.log(id)
+  const id = decodeURI(window.location.href.split('/').reverse()[0] || '')
   const [duration, setDuration] = useState('1d')
 
   const onBtnsChange = ({target: {value}}) => setDuration(value)

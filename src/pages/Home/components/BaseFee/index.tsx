@@ -7,13 +7,13 @@ export default ({duration}) => {
   const [data, setData] = useState([])
   useEffect(() => { 
     api.basefee({duration}).then(res => {
-      const list = res.map(el =>{
+      const list = res.map((el, idx) =>{
+        // console.log(el.base_fee, `----${idx}----`)
         return {
           time: moment(el.timestamp * 1000).format("HH:mm"),
-          value: Math.round(+el.base_fee),
+          value: +(+el.base_fee).toPrecision(4),
         }
       })
-      console.log(list)
       setData(list)
     }) 
   }, [duration])
@@ -26,6 +26,10 @@ export default ({duration}) => {
     yAxis: {
       label: {
         formatter: v => (v | 0) + ' nonaFil'
+        // formatter: v => {
+        //   console.log(v,11)
+        //   return (v | 0) + ' nonaFil'
+        // }
       },
     },
     point: {

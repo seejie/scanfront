@@ -25,7 +25,7 @@ export default () => {
   }, [])
 
   const history = useHistory()
-  const jump2Miner = (id) => history.push(`/miner/${id}`)
+  const jump2Tag = (id) => history.push(`/tag/${id}`)
 
   const progressColor = ['#6F36D5', '#DB30E3', '#EE3E96', '#FF804A', '#FFDD29', '#9DDC6E', '#45A448', '#36D5B6', '#32C6FD', '#0879FD', '#2F53FF', '#4A00FF']
   const columns = [{
@@ -40,7 +40,7 @@ export default () => {
     ellipsis: true,
     render: text => {
       return (
-        <a onClick={jump2Miner.bind(this, text)}>
+        <a onClick={jump2Tag.bind(this, text)}>
           <img src={fil} className={icon}/>
           {text}
         </a>
@@ -52,7 +52,6 @@ export default () => {
     width: 150,
     ellipsis: true,
     render: (text, el) => {
-      console.log(el)
       return (
         <>
           <Progress

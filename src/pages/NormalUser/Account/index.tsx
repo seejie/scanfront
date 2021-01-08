@@ -9,7 +9,6 @@ export default ({id}) => {
   const [obj, setObj] = useState({}) 
   useEffect(() =>{
     api.user({address: id}).then(res => {
-      console.log(res)
       setObj(res)
     })
   }, [id])

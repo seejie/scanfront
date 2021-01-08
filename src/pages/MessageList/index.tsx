@@ -5,6 +5,7 @@ import { Select, Table } from 'antd';
 import api from '@/api';
 import {abbr, timeStr} from '../../utils'
 import {useHistory} from 'react-router-dom'
+import Search from '@/components/Search'
 
 const { Option } = Select;
 const {title, wrapper, header} = styles
@@ -84,6 +85,7 @@ export default () => {
       <div className={title}>
         <img src={listIcon} alt=""/>
         消息列表
+        <Search />
       </div>
 
       <div className={wrapper}>
@@ -100,6 +102,7 @@ export default () => {
           size="middle"
           loading={loading}
           pagination={{ 
+            current: page,
             position: ['bottomCenter'],
             total: total,
             showQuickJumper: true,

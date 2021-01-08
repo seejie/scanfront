@@ -5,6 +5,7 @@ import api from "@/api";
 import {formatTimeStamp, abbr} from '@/utils'
 import {useHistory} from 'react-router-dom'
 import { Table } from 'antd';
+import Search from '@/components/Search'
 
 const {title, panel} = styles
 
@@ -81,6 +82,7 @@ export default () => {
       <div className={title}>
         <img src={listIcon} alt=""/>
         区块列表
+        <Search />
       </div>
       <div className={panel}>
         <Table 
@@ -88,6 +90,7 @@ export default () => {
           dataSource={list} 
           size="middle"
           pagination={{
+            current: page,
             position: ['bottomCenter'],
             total: total,
             showQuickJumper: true,

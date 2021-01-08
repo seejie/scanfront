@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import api from '@/api';
 import {timeStr} from '../../utils/index'
 import {useHistory} from 'react-router-dom'
+import Search from '@/components/Search'
 
 const {title, wrapper, top, list, row, label, value, blod, block, highlight} = styles
 export default () => {
@@ -54,6 +55,7 @@ export default () => {
     <>
       <div className={title}>
         区块高度：{id}
+        <Search />
       </div>
       <div className={wrapper}>
         <div className={top}>

@@ -7,6 +7,7 @@ import Statistics from '@/pages/UserAccount/components/Statistics'
 import AccountChange from '@/pages/UserAccount/components/AccountChange'
 import PowerChange from '@/pages/UserAccount/components/PowerChange'
 import Modal from '@/pages/UserAccount/components/Modal'
+import Search from '@/components/Search'
 
 const {title, wrapper, btn} = styles
 export default () => {
@@ -23,6 +24,7 @@ export default () => {
       <div className={title}>
         {decodeURI(id)}
         <Button type="link" size="small" className={btn} onClick={setSignature}>修改签名</Button>
+        <Search />
       </div>
 
       <Xpanel 

@@ -9,6 +9,7 @@ import PowerChange from './components/PowerChange'
 import Xtable from './components/Xtable'
 import Modal from './components/Modal'
 import { Button } from 'antd';
+import Search from '@/components/Search'
 
 const {title, wrapper, btn} = styles
 
@@ -26,6 +27,7 @@ export default () => {
       <div className={title}>
         账户：{id}
         <Button type="link" size="small" className={btn} onClick={setSignature}>修改签名</Button>
+        <Search />
       </div>
 
       <Xpanel 

@@ -96,6 +96,7 @@ export default ({id}) => {
         size="middle"
         loading={loading}
         pagination={{ 
+          current: page,
           position: ['bottomCenter'],
           total: total,
           showQuickJumper: true,

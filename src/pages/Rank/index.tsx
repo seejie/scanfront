@@ -5,6 +5,7 @@ import api from "@/api";
 import wakuang from '../../../assets/wakuang.png'
 import getTitle from './tableTitle'
 import {useHistory} from 'react-router-dom'
+import Search from '@/components/Search'
 
 const {title, panel, header, left, right, list} = styles
 export default () => {
@@ -22,28 +23,32 @@ export default () => {
   const [arr, setArr] = useState([])
   const [loading, setLoading] = useState(false)
   
-  useEffect(() => {
+  useEffect(() => {    
     setLoading(true)
     api[type]({
       size: pageSize,
       page,
       duration: time
     }).then(res => {
-      const {Page, Total, Data} = res
+      const {Total, Data} = res
       const arr = Data.map((el, key) => {
         return {
           ...el,
           key
         }
       })
+      
       setArr(arr)
       setTotal(Total)
-      setPage(Page)
       setLoading(false)
     }).catch(() => {
       setLoading(false)
     })
   }, [type, time, page])
+
+  useEffect(() => {
+    setPage(1)
+  }, [type, time])
 
   const onPageChanged = num => setPage(num)
 
@@ -63,6 +68,7 @@ export default () => {
       <div className={title}>
         <img src={wakuang} alt=""/>
         挖矿排行榜
+        <Search />
       </div>
       <div className={panel}>
         <div className={header}>
@@ -98,6 +104,7 @@ export default () => {
             size="middle"
             loading={loading}
             pagination={{ 
+              current: page,
               position: ['bottomCenter'],
               total: total,
               showQuickJumper: true,

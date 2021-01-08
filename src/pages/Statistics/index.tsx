@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from './index.module.less';
 import Xpanel from '../../components/Xpanel'
 import BaseFee from '../Home/components/BaseFee'
+import Search from '@/components/Search'
 
 const {title} = styles
 
@@ -13,6 +14,7 @@ export default () => {
     <>
       <div className={title}>
         Gass统计
+        <Search />
       </div>
 
       <Xpanel

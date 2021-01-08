@@ -1,34 +1,14 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styles from "./index.module.less";
-import { Input } from "antd";
-import { SearchOutlined } from '@ant-design/icons';
-import api from '@/api'
+import Search from '@/components/Search'
 
-const { wrapper, input, info } = styles
+const { wrapper, info } = styles
 export default ({ price = 0, profit = 0, total = 0 }) => {
   const txt = `FIL单价 ${price} | 24H平均挖矿收益 ${profit} ｜ 近24H产出量 ${total}`
 
-  const [keyword, setKeyword] = useState('')
-  const $input = useRef(null)
-
-  const onchange = e => setKeyword(e.currentTarget.value || '')
-  const onSearch = () => {
-    if (!keyword.trim()) return
-    api.queryTarget({ search: keyword }).then(res => {
-      console.log(res)
-    })
-  }
-
   return (
     <div className={wrapper}>
-      <Input 
-        className={input}
-        placeholder='搜索信息ID/区块哈希/矿工ID'
-        prefix={<SearchOutlined />}
-        onChange={onchange}
-        onPressEnter={onSearch}
-        ref={$input}
-      />
+      <Search />
       <div className={info}>{txt}</div>
     </div>
   )

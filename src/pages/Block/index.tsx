@@ -5,6 +5,7 @@ import api from '../../api'
 import {abbr, timeStr} from '../../utils'
 import listIcon from  '../../../assets/list-icon.png' 
 import { Table } from 'antd';
+import Search from '@/components/Search'
 
 const {title, panel, subTitle, info, row, label, value, heigtLight} = styles
 
@@ -81,7 +82,8 @@ export default () => {
     <>
       <div className={title}>
         <img src={listIcon} alt=""/>
-        区块列表
+        区块详情
+        <Search />
       </div>
 
       <div className={panel}>
@@ -150,6 +152,7 @@ export default () => {
           dataSource={list} 
           size="middle" 
           pagination={{ 
+            current: page,
             position: ['bottomCenter'],
             total: total,
             showQuickJumper: true,

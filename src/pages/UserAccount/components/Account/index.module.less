@@ -3,11 +3,16 @@
   flex-wrap: wrap;
   .row{
     margin: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+    width: 50%;
+    // display: flex;
     &:nth-child(odd) {
       padding-right: 40px;
     }
-    width: 50%;
-    display: flex;
     .label{
       flex: 1;
     }

@@ -35,7 +35,7 @@ export default ({id}) => {
       const arr = List.map((el, key) => {
         const {cid, timestamp, from, block_cid, ...rest} = el
         return {
-          cid: abbr(cid, 4),
+          cid,
           timestamp: timeStr(timestamp),
           from: abbr(from, 4),
           block_cid: abbr(block_cid, 4),
@@ -68,7 +68,8 @@ export default ({id}) => {
 
   const history = useHistory()
   const jump2Height = id => history.push(`/height/${id}`)
-  const jump2Miner = miner => history.push(`/miner/${miner}`)
+  const jump2Miner = id => history.push(`/miner/${id}`)
+  const jump2Msg = id => history.push(`/message/${id}`)
 
   const options = () => {
     if (!methods) return null
@@ -100,7 +101,7 @@ export default ({id}) => {
       </div>
 
       <Table 
-        columns={getTitle(jump2Miner, jump2Height)[type]} 
+        columns={getTitle(jump2Msg, jump2Height)[type]} 
         dataSource={list} 
         size="middle"
         loading={loading}

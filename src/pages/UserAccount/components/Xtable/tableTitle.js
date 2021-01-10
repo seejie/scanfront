@@ -1,9 +1,13 @@
 import Tooltip from "@/components/Tooltip";
 import React from "react";
+import {abbr} from '@/utils'
 
-const 消息ID = {
-  title: '消息ID',
-  dataIndex: 'cid',
+const 消息ID = cb => {
+  return {
+    title: '消息ID',
+    dataIndex: 'cid',
+    render: (text, {cid}) => <a onClick={cb.bind(this, cid)}>{abbr(text)}</a>
+  }
 }
 
 const 区块高度 = cb => {
@@ -47,9 +51,9 @@ const tooltip = title => {
   )
 }
 
-export default (jump2Miner, jump2Height) => {
+export default (jump2Msg, jump2Height) => {
   return {
-    message: [消息ID, 区块高度(jump2Height), 时间, 发送方, 接收方, {
+    message: [消息ID(jump2Msg), 区块高度(jump2Height), 时间, 发送方, 接收方, {
       title: '方法',
       dataIndex: 'method',
     }, {
@@ -72,7 +76,7 @@ export default (jump2Miner, jump2Height) => {
       title: '区块大小',
       dataIndex: 'size',
     }],
-    transfer: [时间, 消息ID, 发送方, 接收方, {
+    transfer: [时间, 消息ID(jump2Msg), 发送方, 接收方, {
       title: '净收入',
       dataIndex: '',
     }, {

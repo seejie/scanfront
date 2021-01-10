@@ -35,8 +35,13 @@
       min-width: 150px;
     }
     .value{
-      display: flex;
-      flex-direction: column;
+      // display: flex;
+      // flex-direction: column;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+      max-width: 100%;
       &.heigtLight, span{
         color: #003BE8;
         cursor: pointer;

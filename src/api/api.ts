@@ -58,8 +58,11 @@ export default {
   user: `${api}GetAddrInfo`,
   // 消息列表
   message: `${api}MessageList`,
+  // 聚合
   minerTagAccountChange: `${api}minertag/GetMinerAccountChange`,
   minerTagPowerChange: `${api}minertag/GetMinerPowerChange`,
   minedTagStatic: `${api}minertag/GetMinerTagMinedStatic`,
-  overviewTag: `${api}minertag/GetMinerTagOverview`
+  overviewTag: `${api}minertag/GetMinerTagOverview`,
+  // 消息详情
+  messageInfoApi: `${api}MessageInfoApi`
 }

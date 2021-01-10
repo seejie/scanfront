@@ -69,6 +69,8 @@ export default () => {
   }, {
     title: '接收方',
     dataIndex: 'to',
+    width: 100,
+    ellipsis: true,
   }, {
     title: '方法',
     dataIndex: 'method',

@@ -6,6 +6,7 @@ import {abbr, timeStr} from '../../utils'
 import listIcon from  '../../../assets/list-icon.png' 
 import { Table } from 'antd';
 import Search from '@/components/Search'
+import {useHistory} from 'react-router-dom'
 
 const {title, panel, subTitle, info, row, label, value, heigtLight} = styles
 
@@ -18,11 +19,16 @@ export default () => {
     })
   }, [id])
 
-  const parentOnClick = id => console.log(id)
+  const history = useHistory()
+  const jump2Height = () => history.push(`/height/${block.height}`)
+  const jump2Miner = id => history.push(`/miner/${id || block.miner}`)
+  const jump2Block = id => history.push(`/block/${id}`)
+  const jump2Msg = id => history.push(`/message/${id}`)
+
   const parents = () => {
     if (!block.parents) return
     return block.parents.map(el => {
-      const handleClicke = parentOnClick(el)
+      const handleClicke = () => jump2Block(el)
       return <span onClick={handleClicke} key={el}>{el}</span>
     })
   }
@@ -41,10 +47,8 @@ export default () => {
       const {List, Total, Methods} = res
       console.log(res)
       const arr = List.map((el, key) => {
-        const {cid, from, ...rest} = el
+        const {...rest} = el
         return {
-          cid: abbr(cid, 4),
-          from: abbr(from, 4),
           ...rest,
           key
         }
@@ -58,12 +62,15 @@ export default () => {
   const columns = [{
     title: '消息ID',
     dataIndex: 'cid',
+    render: (text, {cid}) => <a onClick={jump2Msg.bind(this, cid)}>{abbr(text)}</a>
   }, {
     title: '发送方',
     dataIndex: 'from',
+    render: (text, {cid}) => <a onClick={jump2Msg.bind(this, cid)}>{abbr(text)}</a>
   }, {
     title: '接收方',
     dataIndex: 'to',
+    render: text => <a onClick={jump2Miner.bind(this, text)}>{text}</a>
   }, {
     title: '方法',
     dataIndex: 'method',
@@ -97,11 +104,11 @@ export default () => {
           </div>
           <div className={row}>
             <div className={label}>高度</div>
-            <div className={classNames([value, heigtLight])}>{block.height}</div>
+            <div className={classNames([value, heigtLight])} onClick={jump2Height}>{block.height}</div>
           </div>
           <div className={row}>
             <div className={label}>矿工</div>
-            <div className={classNames([value, heigtLight])}>{block.miner}</div>
+            <div className={classNames([value, heigtLight])} onClick={jump2Miner}>{block.miner}</div>
           </div>
           <div className={row}>
             <div className={label}>时间</div>

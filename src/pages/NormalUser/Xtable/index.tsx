@@ -18,7 +18,7 @@ export default ({id}) => {
   const [method, setMethod] = useState('')
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
+  const requestData = () => {
     const params = {
       size: pageSize,
       miner: id,
@@ -48,7 +48,11 @@ export default ({id}) => {
     }).catch(() =>{
       setLoading(false)
     })
-  }, [type, method, page])
+  }
+
+  useEffect(() => {
+    requestData()
+  }, [])
 
   const onBtnsChange = ({target: {value}}) => {
     setType(value)
@@ -56,8 +60,12 @@ export default ({id}) => {
     setMethods(null)
     setPage(1)
     setList([])
+    requestData()
   }
-  const handleChange = val => setMethod(val)
+  const handleChange = val => {
+    setMethod(val)
+    requestData()
+  }
 
   const history = useHistory()
   const jump2Height = id => history.push(`/height/${id}`)
@@ -72,7 +80,10 @@ export default ({id}) => {
     })
   }
 
-  const onPageChanged = num => setPage(num)
+  const onPageChanged = num =>{
+    setPage(num)
+    requestData()
+  }
 
   return (
     <div className={wrapper}>

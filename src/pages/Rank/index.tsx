@@ -14,16 +14,22 @@ export default () => {
   const onTypeChanged = e => {
     setType(e.target.value)
     setArr([])
+    setPage(1)
+    requestTableData()
   }
   const [time, setTime] = useState('1d')
-  const onTimeChanged = e => setTime(e.target.value)
+  const onTimeChanged = e => {
+    setTime(e.target.value)
+    setPage(1)
+    requestTableData()
+  }
 
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
   const [arr, setArr] = useState([])
   const [loading, setLoading] = useState(false)
-  
-  useEffect(() => {    
+
+  const requestTableData = () => {
     setLoading(true)
     api[type]({
       size: pageSize,
@@ -44,13 +50,16 @@ export default () => {
     }).catch(() => {
       setLoading(false)
     })
-  }, [type, time, page])
-
+  }
+  
   useEffect(() => {
-    setPage(1)
-  }, [type, time])
-
-  const onPageChanged = num => setPage(num)
+    requestTableData()
+  }, [])
+  
+  const onPageChanged = num => {
+    setPage(num)
+    requestTableData()
+  }
 
   const history = useHistory()
   const jump2Miner = miner => history.push(`/miner/${miner}`)

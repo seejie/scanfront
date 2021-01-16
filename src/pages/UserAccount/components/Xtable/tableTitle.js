@@ -56,6 +56,7 @@ export default (jump2Msg, jump2Height) => {
     message: [消息ID(jump2Msg), 区块高度(jump2Height), 时间, 发送方, 接收方, {
       title: '方法',
       dataIndex: 'method',
+      ellipsis: true
     }, {
       title: '金额',
       dataIndex: 'value',
@@ -79,6 +80,7 @@ export default (jump2Msg, jump2Height) => {
     transfer: [时间, 消息ID(jump2Msg), 发送方, 接收方, {
       title: '净收入',
       dataIndex: '',
+      ellipsis: true
     }, {
       title: '类型',
       dataIndex: '',
@@ -86,6 +88,7 @@ export default (jump2Msg, jump2Height) => {
     deadLines: [{
       title: 'DeadLine',
       dataIndex: '',
+      ellipsis: true
     }, {
       title: 'Partitions',
       dataIndex: '',

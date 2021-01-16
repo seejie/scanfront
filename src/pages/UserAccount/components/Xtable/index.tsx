@@ -18,7 +18,7 @@ export default ({id}) => {
   const [method, setMethod] = useState('')
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
+  const requestData = () => {
     if (type === 'deadLines') return
     const params = {
       size: pageSize,
@@ -26,7 +26,7 @@ export default ({id}) => {
       page,
       method
     }
-
+  
     setLoading(true)
     setList([])
     api[`${type}List`](params).then((res) => {
@@ -43,6 +43,7 @@ export default ({id}) => {
           key
         }
       })
+
       setList(arr)
       setMethods(Methods)
       setTotal(Total)
@@ -50,7 +51,11 @@ export default ({id}) => {
     }).catch(() =>{
       setLoading(false)
     })
-  }, [type, method, page])
+  }
+
+  useEffect(() => {
+    requestData()
+  }, [])
 
   const onBtnsChange = ({target: {value}}) => {
     setType(value)
@@ -58,17 +63,18 @@ export default ({id}) => {
     setMethods(null)
     setPage(1)
     setList([])
+    requestData()
   }
   const handleChange = val => {
     setMethod(val)
     setTotal(0)
     setList([])
     setPage(1)
+    requestData()
   }
 
   const history = useHistory()
   const jump2Height = id => history.push(`/height/${id}`)
-  const jump2Miner = id => history.push(`/miner/${id}`)
   const jump2Msg = id => history.push(`/message/${id}`)
 
   const options = () => {
@@ -80,7 +86,10 @@ export default ({id}) => {
     })
   }
 
-  const onPageChanged = num => setPage(num)
+  const onPageChanged = num => {
+    setPage(num)
+    requestData()
+  }
 
   return (
     <div className={wrapper}>

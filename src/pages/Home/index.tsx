@@ -27,7 +27,7 @@ export default () => {
   
   const [tempT, setTempT] = useState('')
   const [tempH, setTempH] = useState('')
-  const onUpdate = (v) => {
+  const onUpdate = v => {
     setTempT((v.block_info[0] || {}).timestap)
     setTempH(v.height)
   }

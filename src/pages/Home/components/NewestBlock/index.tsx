@@ -37,12 +37,6 @@ export default ({onUpdate}) => {
         el.reward && rewards.push(el.reward)
       });
 
-      clearInterval(timer)
-      timer = setInterval(() => {
-        now+=1
-        updateTable(list, now)
-      }, 1000)
-
       return {
         time: formatTimeStamp((block_info[0] || {}).timestap || now, now),
         ids,
@@ -55,6 +49,13 @@ export default ({onUpdate}) => {
       }
     })
     setList(arr)
+
+    clearInterval(timer)
+    timer = setInterval(() => {
+      now+=1
+      updateTable(list, now)      
+      onUpdate(list[0])
+    }, 1000)
   }
 
   const history = useHistory()

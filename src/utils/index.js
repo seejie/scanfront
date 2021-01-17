@@ -14,7 +14,7 @@ export const formatTimeStamp = (time, now) => {
   else if (day <= diff && diff < month) return `${Math.round(diff / day)} 天前`
   else if (hour <= diff && diff < day) return `${Math.round(diff / hour)} 小时前`
   else if (minute <= diff && diff < hour) {
-    const n = Math.ceil(diff / minute)
+    const n = (diff / minute) | 0
     const m = diff % minute
     if (n === 0) return `${n} 分钟前`
     return `${n} 分钟 ${m} 秒前`

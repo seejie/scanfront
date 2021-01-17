@@ -11,6 +11,7 @@ export default ({data}) => {
 
   const [time, setTime] = useState('') 
   useEffect(() => {
+    now++
     const timer = setInterval(() => {
       const temp = formatTimeStamp(Math.round(timestap), now)
       now += 1
@@ -18,7 +19,7 @@ export default ({data}) => {
     }, 1000)
 
     return () => clearInterval(timer)
-  })
+  }, [timestap])
 
   const first = ['区块高度', tempH || LastHeight, '', '最新区块时间', time]
 

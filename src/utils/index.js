@@ -7,7 +7,6 @@ const maxTime = 5 * year
 
 export const formatTimeStamp = (time, now) => {
   const diff = Math.round(now - time)
-  // console.log(diff)
   if (diff <= 0) return '0 秒前'
   else if (diff >= maxTime) return '5年前'
   else if (year <= diff && diff < maxTime) return `${Math.round(diff / year)} 年前`

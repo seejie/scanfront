@@ -12,8 +12,9 @@ import zs3 from "../../../assets/zs3.png";
 import zs4 from "../../../assets/zs4.png";
 import api from '@/api'
 import {useHistory} from 'react-router-dom'
+import Chart from './components/Chart'
 
-const { wrapper } = styles
+const { wrapper, wrapper2 } = styles
 export default () => {
   
   // 网络概览
@@ -40,7 +41,10 @@ export default () => {
         total={net.Newtoken}
       />
 
-      <DashBoard info={net} tempT={tempT} tempH={tempH} />
+      <div className={wrapper2}>
+        <Chart data={{info: net, tempT, tempH}} />
+        <DashBoard info={net} tempT={tempT} tempH={tempH} />
+      </div>
 
       <div className={wrapper}>
         <Xpanel 

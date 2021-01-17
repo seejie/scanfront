@@ -40,6 +40,9 @@ export default ({id, type = ''}) => {
       title: false,
       content: false
     },
+    label: {
+      labelLine: null
+    },
   };
 
   return (

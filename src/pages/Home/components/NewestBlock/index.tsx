@@ -18,34 +18,45 @@ export default ({onUpdate}) => {
       }
 
       const now = Math.round(new Date().getTime() / 1000)
-      const arr = list.map((item, key) => {
-        const {time, block_info, ...rest} = item
-        let ids = [], miners = [], tags = [], msg = [], rewards = []
-
-        block_info.forEach(el => {
-          el.cid && ids.push(el.cid)
-          el.miner && miners.push(el.miner)
-          el.tag && tags.push(el.tag)
-          el.message && msg.push(el.message)
-          el.reward && rewards.push(el.reward)
-        });
-
-        return {
-          time: formatTimeStamp((block_info[0] || {}).timestap || now, now),
-          ids,
-          miners,
-          tags,
-          msg,
-          rewards,
-          ...rest,
-          key
-        }
-      })
-      setList(arr)
+      updateTable(list, now)
       onUpdate(list[0])
     }
   }, [])
   
+  let timer
+  const updateTable = (list, now) => {
+    const arr = list.map((item, key) => {
+      const {time, block_info, ...rest} = item
+      let ids = [], miners = [], tags = [], msg = [], rewards = []
+
+      block_info.forEach(el => {
+        el.cid && ids.push(el.cid)
+        el.miner && miners.push(el.miner)
+        el.tag && tags.push(el.tag)
+        el.message && msg.push(el.message)
+        el.reward && rewards.push(el.reward)
+      });
+
+      clearInterval(timer)
+      timer = setInterval(() => {
+        now+=1
+        updateTable(list, now)
+      }, 1000)
+
+      return {
+        time: formatTimeStamp((block_info[0] || {}).timestap || now, now),
+        ids,
+        miners,
+        tags,
+        msg,
+        rewards,
+        ...rest,
+        key
+      }
+    })
+    setList(arr)
+  }
+
   const history = useHistory()
   const jump2 = (path, id) => history.push(`/${path}/${id}`)
 

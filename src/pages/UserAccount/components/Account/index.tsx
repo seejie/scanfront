@@ -27,7 +27,7 @@ export default ({id}) => {
         {overview.msg_num}
       </div>
       <div className={row}>
-        <span className={label}>Owner</span>
+        <span className={label}>Owner：</span>
         <span className={value}>{overview.owner}</span>
       </div>
       <div className={row}>
